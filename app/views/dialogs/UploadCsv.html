@@ -1,0 +1,42 @@
+<div class="scrollable">
+  <div class="alert-view" ng-show="showAlert">
+    <div class="alert-message"></div>
+  </div>
+  <div class="header">
+    <div class="text" ng-bind="headerText"></div>
+  </div>
+  <div class="upload-docs">
+    <form class="form">
+      <ul>
+        <li>
+          <div class="flex-columns">
+            <!--<div class="first">{{document.documentName}}</div>-->
+            <div class="second">
+              <div class="input-group">
+
+              
+                <ng-csv-import 
+                  class="import"
+                  content="csv.content"
+                  header="csv.header" 
+                  header-visible="csv.headerVisible" 
+                  separator="csv.separator"
+                  separator-visible="csv.separatorVisible"
+                  result="csv.result"
+                  encoding="csv.encoding"
+                  encoding-visible="csv.encodingVisible"
+                  upload-button-label="csv.uploadButtonLabel">
+                </ng-csv-import>
+  
+
+                <input type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="{{document.documentName}}" onchange="angular.element(this).scope().uploadFiles(this)"/>
+              </div>
+            </div>
+            <div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

@@ -1,3 +1,62 @@
-<h1>
-	HELLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOO
-</h1>
+<div class="scrollable">
+  <div class="alert-view" ng-show="showAlert">
+    <div class="alert-message" ng-bind="alertMessage"></div>
+  </div>
+  <div class="header">
+    <div class="text" ng-bind="headerText"></div>
+  </div>
+  <div class = "editHeader" ng-repeat="tripData in tripData">
+    <span class = "vehNoHeader">
+      <span>{{"Trip code : " + tripData.tripCode}}<span class="vehNoHeader">{{"Vehicle Number :  " + tripData.vehicleNumber}}</span>
+    </span>
+  </div>
+  <div class="tripCost">
+    <div class="flex-stack tripRateEditSection">
+      <div class="flex-columns form-field" ng-repeat="rateComponent in rateComponents">
+        <div class="field-label width20percent">{{rateComponent.label}}</div>
+        <!-- <div class="field-label width20percent">{{tripData.defaultTripRatesDto[rateComponent.key] || 0}}</div> -->
+        <div class="width20percent">
+          <div class="input-group">
+            <input type="text" ng-model="rateComponent.editedValue" />
+          </div>
+        </div>
+        <!-- <edit-pencil is-edit="rateComponent.isEdit" ng-show="rateComponent.isEditable"></edit-pencil> -->
+      </div>
+      <div class="form-field first">
+        <div class="field-label">Comments</div>
+        <div class="input-group">
+          <input type="text" ng-model="comments" />
+        </div>
+      </div>
+    </div>
+    <!-- <div class="splitInvoiceSection">
+      <div class="form-field">
+        <div class="input-group">
+          <input type="checkbox" id="splitInvoice" class="checkbox" ng-model="splitInvoice" />
+          <div class="field-label"><label for="splitInvoice">Split Invoice</label></div>
+        </div>
+      </div>
+      <div class="flex-stack" ng-show="splitInvoice">
+        <div class="flex-columns">
+          <div class="flex-columns width30percent splitInvoiceInto">
+            <div class="subSectionHeader">Split into </div>
+            <div class="inlineTextBox">
+              <div class="input-group">
+                <input type="text" ng-model="splitBy" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" />
+              </div>
+            </div>
+            <div class="subSectionHeader">invoices</div>
+          </div>
+          <div class="button-group">
+            <button class="button-group-main equal" ng-disabled="!splitBy" ng-class="{selected: splitDone==='equal'}" ng-click="split('equal')" ng-mouseover="showTooltip($event, 'Split equally')" ng-mouseleave='hideTooltip($event)'>=</button>
+            <button class="button-group-main" ng-disabled="!splitBy" ng-class="{selected: splitDone==='shares'}"  ng-click="split('shares')" ng-mouseover="showTooltip($event, 'Split by shares')" ng-mouseleave='hideTooltip($event)'><i class="fa fa-tasks"></i></button>
+            <button class="button-group-main" ng-disabled="!splitBy" ng-class="{selected: splitDone==='unequal'}"  ng-click="split('unequal')" ng-mouseover="showTooltip($event, 'Split manually')" ng-mouseleave='hideTooltip($event)'><i class="fa fa-th-list"></i></button>
+          </div>
+        </div>
+        <div class="splitTable" ng-show="splitDone">
+          <table-view page-data="splitInvoiceTableData" data="splitInvoiceData"></table-view>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

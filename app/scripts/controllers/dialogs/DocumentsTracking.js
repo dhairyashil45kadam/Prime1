@@ -20,9 +20,11 @@ angular.module('financeUiApp')
          }
       ];
 
+      
+      
       $scope.uploadFiles = function (input) {
-        uploadedFiles[input.name] = input.files[0];;
-        $scope.$digest();
+         uploadedFiles[input.name] = input.files[0];;
+         $scope.$digest();
       };
     }
   ]);

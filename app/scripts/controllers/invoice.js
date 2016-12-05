@@ -970,6 +970,14 @@ angular.module('financeUiApp')
         }
         setTabData();
       };
+      
+      $scope.uploadTripsCSV = function(){    
+        $rootScope.$emit('show-topDrawer', {
+          template: 'views/dialogs/UploadCsv.html',
+          controller: 'UploadCsvCtrl',
+          heading: "Upload CSV"
+        });
+      }
 
       $scope.downloadTripsCSV = function() {
         var csvName = $scope.filters.client.clientName;

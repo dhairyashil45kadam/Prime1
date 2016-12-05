@@ -14,6 +14,7 @@ angular
     'ngCookies',
     'ngResource',
     'ui.router',
+    'ngCsvImport',
     'ngSanitize',
     'ngTouch',
     'ngDialog',
@@ -21,6 +22,7 @@ angular
     'angular-carousel',
     'ui.sortable',
     'isteven-multi-select'
+
   ], function($httpProvider) {
 
     /**
@@ -213,6 +215,39 @@ angular
         url: 'invoices',
         templateUrl: 'views/generatedInvoices.html',
         controller: 'GeneratedInvoiceCtrl',
+        resolve: {
+         Access: ['AccessFactory', function(AccessFactory) {
+           return AccessFactory.isAuthenticated();
+         }],
+         UserProfile: 'UserProfileFactory'
+       }
+      })
+      .state('main.invoicingMis', {
+        url: 'invoicingMis',
+        templateUrl: 'views/invoicingMis.html',
+        controller: 'InvoicingMisCtrl',
+        resolve: {
+         Access: ['AccessFactory', function(AccessFactory) {
+           return AccessFactory.isAuthenticated();
+         }],
+         UserProfile: 'UserProfileFactory'
+       }
+      })
+      .state('main.tripWiseBilling', {
+        url: 'tripWiseBilling',
+        templateUrl: 'views/tripWiseBilling.html',
+        controller: 'TripWiseBillingCtrl',
+        resolve: {
+         Access: ['AccessFactory', function(AccessFactory) {
+           return AccessFactory.isAuthenticated();
+         }],
+         UserProfile: 'UserProfileFactory'
+       }
+      })
+      .state('main.routeRateMis', {
+        url: 'routeRateMis',
+        templateUrl: 'views/routeRateMis.html',
+        controller: 'RouteRateMis',
         resolve: {
          Access: ['AccessFactory', function(AccessFactory) {
            return AccessFactory.isAuthenticated();

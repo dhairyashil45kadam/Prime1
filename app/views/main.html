@@ -24,9 +24,14 @@
           <i class="fa fa-fw fa-caret-down pull-right" ng-show="showReportOptions"></i>
           <i class="fa fa-fw fa-caret-right pull-right" ng-show="!showReportOptions"></i>
         </a>
+        
         <a ui-sref=".missingTrips" title="Missing Trips" ng-show="showReportOptions">Missing Trips</a>
         <a ui-sref=".tripDetails" title="Trip Details" ng-show="showReportOptions">Trip Details</a>
         <a ui-sref=".businessVertical" title="Business Vertical" ng-show="showReportOptions">Finance Report</a>
+
+        <a ui-sref=".invoicingMis" title="Invoicing MIS Report" ng-show="showReportOptions">Invoicing MIS Report</a>
+         <a ui-sref=".tripWiseBilling" title="Trip wise billing status" ng-show="showReportOptions">Trip wise billing status</a>
+         <a ui-sref=".routeRateMis" title="Route Rate MIS" ng-show="showReportOptions">Route Rate MIS</a>
       	<!-- <a ui-sref=".payment">Payment settlement</a> -->
       </nav>
     </div>
