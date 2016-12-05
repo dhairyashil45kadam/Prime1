@@ -222,6 +222,8 @@ angular
          UserProfile: 'UserProfileFactory'
        }
       })
+
+      
       .state('main.invoicingMis', {
         url: 'invoicingMis',
         templateUrl: 'views/invoicingMis.html',

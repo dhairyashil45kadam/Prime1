@@ -15,19 +15,16 @@
               <div class="input-group">
 
               
-                <ng-csv-import 
-                  class="import"
-                  content="csv.content"
-                  header="csv.header" 
-                  header-visible="csv.headerVisible" 
-                  separator="csv.separator"
-                  separator-visible="csv.separatorVisible"
-                  result="csv.result"
-                  encoding="csv.encoding"
-                  encoding-visible="csv.encodingVisible"
-                  upload-button-label="csv.uploadButtonLabel">
-                </ng-csv-import>
-  
+                <ng-csv-import content="csv.content"
+                material
+                md-button-class="md-icon-button md-raised md-accent"
+                md-svg-icon="file:ic_file_upload_24px"
+                header="csv.header"
+                separator="csv.separator"
+                result="csv.result"
+                accept="csv.accept"></ng-csv-import>
+                
+                {{ csv.result }}
 
                 <input type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="{{document.documentName}}" onchange="angular.element(this).scope().uploadFiles(this)"/>
               </div>
