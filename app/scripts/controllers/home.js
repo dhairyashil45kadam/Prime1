@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('financeUiApp')
-  
   .controller('HomeCtrl', ['$rootScope', '$scope', 'ClientService','UserProfileFactory','PermissionConstant',
     function ($rootScope, $scope, ClientService,UserProfileFactory,PermissionConstant) {
+
       $scope.UserProfile =  UserProfileFactory.$$state.value;
 			$scope.PermissionConstant = PermissionConstant;
 

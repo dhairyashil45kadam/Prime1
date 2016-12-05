@@ -62,6 +62,15 @@
               </div>
             </div>
             <div class="existingEntries" ng-if="rateAlreadyPresent">
+              <!-- <h2>asdasdasd</h2> -->
+              <div class="selectedFilters">
+                <div class="row othersFilter">
+                  <ul class="pager">
+                    <i class="fa fa-download" aria-hidden="true" style="cursor: pointer;float: right;" ng-click="downloadTripsCSV()"></i>
+                    <i class="fa fa-upload" aria-hidden="true" style="cursor: pointer;float: right;" ng-click="uploadTripsCSV()"></i>
+                  </ul>
+                </div>
+              </div>
               <table-view page-data="routeRateTableData" data="existingRatesFiltered"></table-view>
             </div>
             <div class="panel-footer" ng-if="showAddRateButton()">

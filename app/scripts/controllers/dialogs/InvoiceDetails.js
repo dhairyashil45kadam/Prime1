@@ -610,8 +610,8 @@ angular.module('financeUiApp')
       //     $scope.recordCheckIndex(i);
       //   };
       // }
-
-      $scope.recordCheckIndex = function(index) {
+      //old function
+      /*$scope.recordCheckIndex = function(index) {
         var isFound = $scope.selectedColumnIndexes.indexOf(index);
         var str = 'all'+index;
         if(isFound !== -1) {//delete if found
@@ -622,7 +622,70 @@ angular.module('financeUiApp')
           $scope.selectedColumnIndexes.push(index);
           $scope[str] = true;
         }
+      };*/
+
+      //function to check all or uncheck all of dowloadable coloumns
+      $scope.checkAll = function(value) {
+        for (var i = 0; i <= $scope.allColumns.length - 1; i++) {
+            if (value) {
+              //if value is check all
+              $scope.recordCheckIndex(i,'allTrue');  
+            }else{
+              //if value is uncheck all
+              $scope.recordCheckIndex(i,'allFalse');  
+            }
+            
+          };
+      }
+
+      $scope.recordCheckIndex = function(index,type) {
+        var isFound = $scope.selectedColumnIndexes.indexOf(index);
+        var str = 'all'+index;
+        if(isFound !== -1) {//delete if found and type != checkall(allTrue)
+          if (type != 'allTrue' ) {
+            $scope.selectedColumnIndexes.splice(isFound,1);
+            $scope[str] = false;
+          }  
+        }
+        else { //insert if not found
+          $scope.selectedColumnIndexes.push(index);
+          $scope[str] = true;
+        }
       };
+
+      //function to download csv
+      $scope.downloadInvoice = function () {
+        $scope.downloadInvoiceData = [];
+        $scope.downloadInvoiceTemplate = [];
+
+        //downloadable csv template
+        $scope.invTempl = [
+        {"className":"creationDate","key":"creationDate","label":"Creation Date"},
+        {"className":"invoiceNumber","key":"invoiceNumber","label":"Invoice Number"},
+        {"className":"invoiceAmount","key":"invoiceAmount","label":"Invoice Amount"},
+        {"className":"amountInWords","key":"amountInWords","label":"Amount In Words"},
+        {"className":"serviceTaxNo","key":"serviceTaxNo","label":"Service Tax No."},
+        {"className":"panNo","key":"panNo","label":"PAN No."},
+        {"className":"cinNo","key":"cinNo","label":"CIN No."}
+        ];
+        
+        //data to be downloaded
+        $scope.downloadInvoiceData.push({"creationDate":$filter('date')($scope.invoiceDetails.creationDate, "dd/MM/yyyy"),"invoiceNumber":$scope.invoiceDetails.invoiceNumber,"invoiceAmount":$scope.invoiceDetails.invoiceAmount,"amountInWords":$scope.invoiceDetails.amountInWords,"serviceTaxNo":"AAFCT0838FSD001","panNo":"AAFCT0838F","cinNo":"U74999HR2014PTC053030"});
+
+        //function to handle multiple line items
+        angular.forEach($scope.invoiceDetails.invoiceLineItemDtoList, function(value, key) {
+            var itemNo = key+1;
+            $scope.downloadInvoiceData[0]["item"+[itemNo]+ "description"] = value.description;
+            $scope.invTempl.push({"className":"item"+[itemNo]+ "description","key":"item"+[itemNo]+ "description","label":"Line Item "+itemNo+" Description"});
+            $scope.downloadInvoiceData[0]["item"+[itemNo]+ "amount"] = value.amount;
+            $scope.invTempl.push({"className":"item"+[itemNo]+ "amount","key":"item"+[itemNo]+ "amount","label":"Line Item "+itemNo+" Amount"});
+        });
+
+        var csvName = $scope.invoiceDetails.invoiceNumber + "_" + $scope.invoiceDetails.clientCode;//csvname
+        $rootScope.JSONToCSVConvertor($scope.downloadInvoiceData, csvName, $scope.invTempl);//create csv and download
+      }
+
+
       
       $scope.downloadTripsCSV = function() {
         //$scope.selectedColumnIndexes.sort();

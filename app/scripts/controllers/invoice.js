@@ -29,6 +29,26 @@ angular.module('financeUiApp')
         return $filter('number')(a, 2);
       }
 
+      //function to bulk edit trip cost
+      $scope.EditBulkTripCost = function () {
+        if ($scope.selectedTrips.length>0) {
+          $rootScope.$emit('show-topDrawer', {
+                template: 'views/dialogs/EditBulkTripCost.html',
+                controller: 'EditBulkTripCostController',
+                successCallback: function() {
+                  $rootScope.$emit('load-start');
+                  $scope.filter();
+                },
+                data:{
+                  tripsData: $scope.selectedTrips
+                },
+                heading: "Bulk Edit Trip Rates"
+              });
+        }else{
+          alert("Please Select atleast 1 record to bulk edit");
+        }  
+      }
+
       var invoiceBreakupComponents = ['baseRate', 'fuelSurcharge', 'loadingDetention', 'unloadingDetention', 'lateCharge', 'loading', 'unloading', 'greenTax', 'otherCharges'];
 
       var commonInvoiceTableData = {

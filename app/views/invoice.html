@@ -130,6 +130,7 @@
               <i class="fa fa-filter" aria-hidden="true"></i>
               <li><button class="newButton" ng-class="{active: groupFilter == 'all'}" ng-click="grouping('all')">All</button></li>
               <li><button class="newButton" ng-class="{activeGreen: groupFilter == 'not_null'}" ng-click="grouping('not_null')">Rates present</button></li>
+              <li><button class="newButton" ng-click="EditBulkTripCost();">Bulk Edit</button></li>
               <li><button class="newButton" ng-class="{activeRed: groupFilter == 'null'}" ng-click="grouping('null')">Rates absent</button></li>
             <i class="fa fa-download" aria-hidden="true" style="cursor: pointer" ng-click="downloadTripsCSV()"></i>
             </ul>
