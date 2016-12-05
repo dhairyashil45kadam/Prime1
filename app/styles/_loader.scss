@@ -1,0 +1,89 @@
+//colors
+$color_nile_blue_60_approx: rgba(18,52,86,0.6);
+$color_nile_blue_approx: #123456;
+$white_60: rgba(255,255,255,0.6);
+$white: white;
+$black_20: rgba(0,0,0,0.2);
+
+.loading-overlay {
+	background: $black_20;
+	animation: ngdialog-fadein .5s;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 10001;   // setting it more than ngDialog zIndex which is 10000
+}
+
+@keyframes counter-clock {
+	to {
+		@include rotate(-360deg);
+	}
+}
+
+$shadow1: 1em 1em $color_nile_blue_approx;
+$shadow2: -2em 2em $color_nile_blue_approx;
+$shadow3: -1em 1em $color_nile_blue_approx;
+$shadow4: -1em 3em $color_nile_blue_approx;
+$shadow5: 0 4em $color_nile_blue_approx;
+$shadow6: 1em 3em $color_nile_blue_approx;
+$shadow7: 2em 2em $color_nile_blue_approx;
+
+@keyframes blink {
+	25% {
+		background: $color_nile_blue_approx;
+		@include box-shadow(1em 1em $color_nile_blue_60_approx, $shadow7, $shadow6, $shadow5, $shadow4, $shadow2, $shadow3);
+  }
+	50% {
+		background: $color_nile_blue_approx;
+		@include box-shadow($shadow1, $shadow7, 1em 3em $color_nile_blue_60_approx, $shadow5, $shadow4, $shadow2, $shadow3);
+	}
+	75% {
+		background: $color_nile_blue_approx;
+		@include box-shadow($shadow1, $shadow7, $shadow6, $shadow5, -1em 3em $color_nile_blue_60_approx, $shadow2, $shadow3);
+	}
+	100% {
+		background: $color_nile_blue_approx;
+		@include box-shadow($shadow1, $shadow7, $shadow6, $shadow5, $shadow4, $shadow2, -1em 1em $color_nile_blue_60_approx);
+	}
+	0.5% {
+		background: $color_nile_blue_60_approx;
+		@include box-shadow($shadow1, $shadow7, $shadow6, $shadow5, $shadow4, $shadow2, $shadow3);
+	}
+	1.5% {
+		background: $color_nile_blue_approx;
+		@include box-shadow($shadow1, 2em 2em $color_nile_blue_60_approx, $shadow6, $shadow5, $shadow4, $shadow2, $shadow3);
+	}
+	2.5% {
+		background: $color_nile_blue_approx;
+		@include box-shadow($shadow1, $shadow7, $shadow6, 0 4em $color_nile_blue_60_approx, $shadow4, $shadow2, $shadow3);
+	}
+	3.5% {
+		background: $color_nile_blue_approx;
+		@include box-shadow($shadow1, $shadow7, $shadow6, $shadow5, $shadow4, -2em 2em $color_nile_blue_60_approx, $shadow3);
+	}
+}
+.pre-loader {
+	font-size: 30px;
+	width: 1em;
+	height: 1em;
+	position: relative;
+	margin: 250px auto;
+	@include border-radius(50%);
+	background: $color_nile_blue_approx;
+	@include transform-origin(50%, 250%);
+	animation: blink 1s steps(1, start) infinite, counter-clock 8s linear infinite;
+	@include box-shadow($shadow1, $shadow7, $shadow6, $shadow5, $shadow4, $shadow2, $shadow3);
+	&:after {
+		content: "";
+		width: 3em;
+		height: 3em;
+		position: absolute;
+		left: -1em;
+		top: 1em;
+		@include rotate(45deg);
+		background: $white;
+		background: $white_60;
+	}
+}

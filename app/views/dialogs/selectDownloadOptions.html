@@ -1,0 +1,24 @@
+<div class="flex-stack contactInfo form">
+  <div class="field-label">Select and Save columns that you want to download now on</div>
+  <div>
+    <div class="form-field check-section">
+      <div class="input-group" style="display:flex; border:0; flex-flow:row wrap; justify-content:space-between;">
+        <input type="text" ng-model="templateName" placeholder="Enter a name to remember the combiation(Fuel&Taxes)"/>
+     <!--    <input type="checkbox" class="checkbox" style="opacity:1;" ng-checked="all" ng-click="checkAll()" id="all">Check All</input> -->
+        <div ng-repeat="column in allColumns">
+          <input type="checkbox" class="checkbox" ng-checked="{{'all'+$index}}" id="{{'checkbox'+ $index}}" ng-click="recordCheckIndex($index)"/>
+          <div class="field-label"><label for="{{'checkbox'+ $index}}">{{column.label}}</label></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-sortable">
+      <ul ui-sortable="sortableOptions" id="sortable-1" ng-model="selectedColumnIndexes">
+        <li class="default" ng-repeat="selectedColumn in selectedColumnIndexes" id="{{selectedColumn}}">↕  {{allColumns[selectedColumn].label}}</li>
+     </ul>
+    </div>
+  </div>
+    <div class="inlineButtons">
+        <button class="button-group-main secondary width40percent" ng-click="closeThisDialog()">Cancel</button>
+        <button class="button-group-main primary" ng-disabled="!templateName" ng-click="closeThisDialog(templateName)">Save</button>
+    </div>
+  </div>

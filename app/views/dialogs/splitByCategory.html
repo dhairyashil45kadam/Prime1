@@ -1,0 +1,30 @@
+<div class="flex-stack info-container">
+  <div class="filter form-field center">
+    <div class="filterLabel field-label">Splitting Options</div>  
+    <div class="multi-select width40percent">
+      <isteven-multi-select input-model="categories" output-model="usedCategories" button-label="name" item-label="name" tick-property="ticked"></isteven-multi-select>
+    </div>
+    <button class="supplementTripButton" style="margin-top:0px !important" ng-click="displayGroup(usedCategories)">Group</button>
+  </div>
+  <div class="inline">
+    <div class="addressDetails">
+      <a class="addressItems">
+        <h2>Invoice without Splitting</h2>
+        <li class="groupItems" ng-repeat="category in globalData.categories">{{category.name}} - {{category.total}}</li>
+      </a>
+    </div>
+    <!-- <div class="addressDetails"style="margin-top:15%"> </div> -->
+    <div class="addressDetails" ng-repeat="group in finalCategories">
+      <a class="addressItems">
+        <div class="form-field">
+          <div class="field-label">Name to remember this combination*</div>
+          <div class="input-group">
+            <input type="text" ng-model="group.tagName" required/>
+          </div>
+        </div>
+        <li class="groupItems" ng-repeat="type in group">{{type.name}} - {{type.total}}</li>
+        <b style="margin-left:20%;">Total={{group.total}}</b>
+      </a>
+    </div>
+  </div>
+</div>

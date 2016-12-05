@@ -1,0 +1,221 @@
+<div class="scrollable">
+  <div class="alert-view" ng-show="showAlert" ng-class="{error: errorAlert}">
+    <div class="alert-message" ng-bind="alertMessage"></div>
+  </div>
+  <div class="header">
+    <div class="text">Enter client billing details</div>
+  </div>
+  <div class="clientProfile">
+    <form class="form" name="clientDetailsForm">
+      <div class="flex-stack info-container">
+        <div class="clientBillingInfo">
+
+          <div class="flex-columns">
+            <div class="form-field first">
+              <div class="field-label">Client name</div>
+              <div class="input-group">
+                <input type="text" disabled ng-model="client.clientName"/>
+              </div>
+            </div>
+            <div class="form-field second">
+              <div class="field-label">Client code</div>
+              <div class="input-group">
+                <input type="text" disabled ng-model="client.code" />
+              </div>
+            </div>
+          </div>
+          <div class="flex-columns">
+            <div class="first">
+              <div class="form-field" show-errors>
+                <div class="field-label">Billing cycle*</div>
+                <div class="input-group">
+                  <select name="billingCycle" ng-model="clientBillingDetails.billingCycle" ng-options="billingCycle.value as billingCycle.text for billingCycle in billingCycles" required></select>
+                </div>
+              </div>
+              <div class="form-field" show-errors>
+                <div class="field-label">Credit period* <span class="small">(days)</span></div>
+                <div class="input-group">
+                  <input type="text" name="creditPeriod" ng-model="clientBillingDetails.creditPeriodDays" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" required />
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-field second">
+              <div class="field-label">Pan card number</div>
+              <div class="input-group">
+                <input type="text"  ng-model="client.panNumber" />
+              </div>
+            </div> -->
+          </div>
+          <div class="sectionHeader">Contact details</div>
+          <a class="link" ng-click="addNewAddress()">Enter new address</a>
+          <div ng-if="addresses.length > 0">Showing {{carouselIndex+1}} of {{addresses.length}}</div>
+          <div class="addressSection">
+            <ul class="addresses" rn-carousel rn-carousel-controls="" rn-carousel-buffered rn-carousel-transition="hexagon" ng-if="addresses.length > 0" slides="addresses" rn-carousel-index="carouselIndex">
+              <li ng-repeat="address in addresses">
+                <div class="addressDetails">
+                  <a class="addressItems">
+                    <div class="name">{{address.companyName}}</div>
+                    <p>{{address.name}}></p>
+                    <p ng-bind-html = "address.addressWithBrTag"></p>
+                    <p>{{address.city}}, {{address.state}},{{address.pincode}}</p>
+                    <p>{{address.email}}</p>
+                    <span class="phone">{{address.mobileNumber}}</span>
+                  </a>
+                  <div class="action-icons">
+                    <a class="fa fa-trash-o link" ng-click="removeAddress($index)"></a>
+                    <a class="fa fa-pencil link" ng-click="editAddress(address)"></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="sectionHeader">Escalation details</div>
+          <div ng-repeat="escalationDetails in clientBillingDetails.clientContactPersonDtoList">
+            <div class="subSectionHeader">Contact Person {{$index+1}}</div>
+            <div class="escalation flex-columns">
+              <div class="name">
+                <div class="form-field">
+                  <div class="input-group">
+                    <input name="escalationName1" type="text" placeholder="Name" ng-model="escalationDetails.name" />
+                  </div>
+                </div>
+              </div>
+              <div class="phone">
+                <div class="form-field">
+                  <div class="input-group">
+                    <input name="escalationPhone1" type="text" placeholder="Phone" ng-model="escalationDetails.number" />
+                  </div>
+                </div>
+              </div>
+              <div class="email">
+                <div class="form-field">
+                  <div class="input-group">
+                    <input name="escalationEmail1" type="text" placeholder="Email" ng-model="escalationDetails.email" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="link" ng-click="addNewEscalationDetails()" ng-show="!clientBillingDetails.clientContactPersonDtoList || clientBillingDetails.clientContactPersonDtoList.length < 2">Add more</a>
+        </div>
+        <div class="flex-columns">
+          <div class="first">
+            <div class="subSectionHeader">Charges applicable?</div>
+            <div class="form-field">
+              <div class="input-group">
+                <input type="checkbox" id="fuelAppicable" class="checkbox" ng-model="clientBillingDetails.fuelSurcharge" />
+                <div class="field-label"><label for="fuelAppicable">Fuel surcharge</label></div>
+              </div>
+              <div ng-show="clientBillingDetails.fuelSurcharge">
+                <div class="input-group sub-group">
+                  <input type="radio" id="fuelComponentClause" name="fuelSurchargeType" class="radio" ng-model="clientBillingDetails.fuelSurchargeType" value="BASERATE_CLAUSE" />
+                  <div class="field-label"><label for="fuelComponentClause">Component clause</label></div>
+                </div>
+                <div class="input-group sub-group">
+                  <input type="radio" id="fuelMileageClause" name="fuelSurchargeType" class="radio" ng-model="clientBillingDetails.fuelSurchargeType" value="MILEAGE_CLAUSE" />
+                  <div class="field-label"><label for="fuelMileageClause">Mileage clause</label></div>
+                </div>
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="input-group">
+                <input type="checkbox" id="detention" class="checkbox" ng-model="clientBillingDetails.detention" />
+                <div class="field-label"><label for="detention">Detention</label></div>
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="input-group">
+                <input type="checkbox" id="lateDeduction" class="checkbox" ng-model="clientBillingDetails.lateDeduction" />
+                <div class="field-label"><label for="lateDeduction">Late deduction</label></div>
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="input-group">
+                <input type="checkbox" id="discounting" class="checkbox" ng-model="clientBillingDetails.discount" />
+                <div class="field-label"><label for="discounting">Bill discounting</label></div>
+              </div>
+            </div>
+          </div>
+          <div class="second">
+            <div class="subSectionHeader">Report required</div>
+            <div class="form-field">
+              <div class="input-group">
+                <input type="checkbox" id="pod" class="checkbox" ng-model="clientBillingDetails.pod" />
+                <div class="field-label"><label for="pod">POD</label></div>
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="input-group">
+                <input type="checkbox" id="lr" class="checkbox" ng-model="clientBillingDetails.lr" />
+                <div class="field-label"><label for="lr">LR</label></div>
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="input-group">
+                <input type="checkbox" id="tempReport" class="checkbox" ng-model="clientBillingDetails.temperatureReport" />
+                <div class="field-label"><label for="tempReport">Temperature report</label></div>
+              </div>
+            </div>
+            <div class="form-field flex-stack">
+              <div class="input-group">
+                <input type="checkbox" id="others" class="checkbox" ng-model="clientBillingDetails.otherReport" />
+                <div class="field-label"><label for="others">Others</label></div>
+              </div>
+              <div ng-show="clientBillingDetails.otherReport">
+                <div class="field-label">Please specify</div>
+                <div class="input-group">
+                  <input type="text" ng-model="clientBillingDetails.otherReportType"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-columns">
+          <div class="form-field first">
+            <div class="input-group">
+              <div class="field-label">Upload contract</div>
+              <a class="link" ng-click="addNewFile()">Upload file</a>
+              <div ng-if="existingContracts.length !== 0">Showing {{acarouselIndex+1}} of {{existingContracts.length}}</div>
+              <div class="addressSection">
+                <ul class="addresses" rn-carousel rn-carousel-controls="" rn-carousel-buffered rn-carousel-transition="hexagon" ng-if="existingContracts.length !== 0" slides="existingContracts" rn-carousel-index="acarouselIndex">
+                  <li ng-repeat="contract in existingContracts">
+                    <div class="addressDetails">
+                      <a class="addressItems">
+                        <div class="name">{{contract.id}}</div>
+                        <p>{{contract.documentType}}</p>
+                        <p>{{contract.documentClientType}}</p>
+                      </a>
+                      <div class="action-icons">
+                        <a class="fa fa-download" aria-hidden="true" style="cursor: pointer; color: #0088CC" href ={{contract.documentUrl}} target="_blank"></a>
+                        <a class="fa fa-trash-o link" ng-click="removeClientContract($index)"></a>
+                        <a class="fa fa-eye link" ng-click="viewClientContract(contract)"></a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="form-field second" show-errors>
+            <div class="field-label">Start date*</div>
+            <div class="input-group">
+              <div class="date-picker inputIconDiv">
+                <input date-time auto-close="true" view="date" min-view="date" format="DD-MM-YYYY" ng-model="clientBillingDetails.contractStartDate" required>
+                <i class="fa fa-calendar" focus-input></i>
+              </div>
+            </div>
+          </div>
+          <div class="form-field second" show-errors>
+            <div class="field-label">End date*</div>
+            <div class="input-group">
+              <div class="date-picker inputIconDiv">
+                <input date-time auto-close="true" view="date" min-view="date" format="DD-MM-YYYY" ng-model="clientBillingDetails.contractEndDate" required>
+                <i class="fa fa-calendar" focus-input></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

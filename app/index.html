@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css" />
+    <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css" />
+    <link rel="stylesheet" href="bower_components/angular-carousel/dist/angular-carousel.css" />
+    <link rel="stylesheet" href="bower_components/isteven-angular-multiselect/isteven-multi-select.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="financeUiApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="container">
+      <div ui-view=""></div>
+    </div>
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/ng-dialog/js/ngDialog.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/angular-carousel/dist/angular-carousel.js"></script>
+    <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+    <script src="bower_components/isteven-angular-multiselect/isteven-multi-select.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="bower_components/angular-ui-sortable/sortable.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/config.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/home.js"></script>
+        <script src="scripts/controllers/invoice.js"></script>
+        <script src="scripts/controllers/payment.js"></script>
+        <script src="scripts/controllers/documents.js"></script>
+        <script src="scripts/controllers/allClients.js"></script>
+        <script src="scripts/controllers/routes.js"></script>
+        <script src="scripts/controllers/client.js"></script>
+        <script src="scripts/controllers/user.js"></script>
+        <script src="scripts/controllers/missingTrips.js"></script>
+        <script src="scripts/controllers/tripDetails.js"></script>
+        <script src="scripts/controllers/businessVertical.js"></script>
+        <script src="scripts/controllers/generatedInvoices.js"></script>
+        <script src="scripts/controllers/dialogs/ClientController.js"></script>
+        <script src="scripts/controllers/dialogs/DetentionDetails.js"></script>
+        <script src="scripts/controllers/dialogs/RoutesController.js"></script>
+        <script src="scripts/controllers/dialogs/PaymentSettlementController.js"></script>
+        <script src="scripts/controllers/dialogs/DocumentsTracking.js"></script>
+        <script src="scripts/controllers/dialogs/EditTripCostController.js"></script>
+        <script src="scripts/controllers/dialogs/InvoiceGeneration.js"></script>
+        <script src="scripts/controllers/dialogs/InvoiceDetails.js"></script>
+        <script src="scripts/controllers/dialogs/SupplementaryTripController.js"></script>
+        <script src="scripts/controllers/dialogs/SplitByCategory.js"></script>
+
+        <script src="scripts/components/globalDialog.js"></script>
+        <script src="scripts/components/buttonGroup.js"></script>
+        <script src="scripts/components/tableView.js"></script>
+        <script src="scripts/components/previewInvoice.js"></script>
+        <script src="scripts/components/directives.js"></script>
+
+        <script src="scripts/lib/angular-datepicker.js"></script>
+        <script src="scripts/services/lib/HttpQService.js"></script>
+        <script src="scripts/services/ClientService.js"></script>
+        <script src="scripts/services/DetentionService.js"></script>
+        <script src="scripts/services/TripBillingDetailService.js"></script>
+        <script src="scripts/services/InvoiceService.js"></script>
+        <script src="scripts/services/MissingTripsService.js"></script>
+        <script src="scripts/services/AccessFactory.js"></script>
+        <script src="scripts/services/UserProfileFactory.js"></script>
+        <script src="scripts/services/PermissionConstant.js"></script>
+        <script src="scripts/services/UserService.js"></script>
+        <script src="scripts/services/FinanceReportService.js"></script>
+        <!-- endbuild -->
+</body>
+</html>
+
+
+<!-- db.createUser(
+  {
+    user: "rivigoOPC",
+    pwd: "1234",
+    roles: [ { role: "readWrite", db: "rivigodev" } ]
+  }
+) -->

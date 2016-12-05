@@ -1,0 +1,16 @@
+<div class="flex-stack contactInfo form">
+  <div class="form-field">
+    <div class="field-label">Current fuel rate</div>
+    <div class="input-group">
+      <input type="text" ng-model="currentFuelRate" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 0) || (event.charCode == 46))" />
+    </div>
+  </div>
+  <div class="actionButtons">
+    <div class="width40percent button-group">
+      <button class="button-group-main secondary" ng-click="closeThisDialog()">Cancel</button>
+    </div>
+    <div class="width40percent button-group">
+      <button class="button-group-main primary floatRight" ng-click="closeThisDialog(currentFuelRate)">Compute</button>
+    </div>
+  </div>
+</div>

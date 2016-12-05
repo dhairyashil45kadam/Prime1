@@ -1,0 +1,85 @@
+<div ng-click="globalClickHandler()">
+  <div class="loading-overlay" ng-show="showLoading">
+    <div class="pre-loader"></div>
+  </div>
+  <div class="page-view flex-columns">
+    <div class="flyout-overlay" ng-class="{hide: !flyoutOverlay, noOpacity: zeroOpacity}" ng-click="hideFlyout()"></div>
+    <input id="toggle-nav" type="checkbox" checked>
+    <div class="left-nav-container flex-fixed flex-children">
+      <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open" id="cbp-spmenu-s1">
+      	<h3><a ui-sref=".home">Finance portal</a></h3>
+      	<a ui-sref=".documents">Documents tracking</a>
+        <a ui-sref=".invoice">Invoice generation</a>
+      	<a ui-sref=".generatedInvoices">Invoices</a>
+        <a ng-click="toggle()">Manage
+          <i class="fa fa-fw fa-caret-down pull-right" ng-show="showManageOptions"></i>
+          <i class="fa fa-fw fa-caret-right pull-right" ng-show="!showManageOptions"></i>
+        </a>
+        <a ui-sref=".clients" title="Clients" ng-show="showManageOptions">Clients</a>
+        <a ui-sref=".routes" title="Routes" ng-show="showManageOptions">Routes</a>
+        <a ui-sref=".clientHistory" title="Client history" ng-show="showManageOptions">Client History</a>
+        <a ui-sref=".user" title="Users" ng-show = "UserProfile.$hasAnyRole(PermissionConstant.userClientMapping) && showManageOptions">Users</a>
+
+        <a ng-click="toggleReports()">Reports
+          <i class="fa fa-fw fa-caret-down pull-right" ng-show="showReportOptions"></i>
+          <i class="fa fa-fw fa-caret-right pull-right" ng-show="!showReportOptions"></i>
+        </a>
+        <a ui-sref=".missingTrips" title="Missing Trips" ng-show="showReportOptions">Missing Trips</a>
+        <a ui-sref=".tripDetails" title="Trip Details" ng-show="showReportOptions">Trip Details</a>
+        <a ui-sref=".businessVertical" title="Business Vertical" ng-show="showReportOptions">Finance Report</a>
+      	<!-- <a ui-sref=".payment">Payment settlement</a> -->
+      </nav>
+    </div>
+    <label id="toggle-nav-label" for="toggle-nav">
+      <i class="fa fa-angle-left"></i>
+    </label>
+    <div class="body-container flex-flexible flex-stack">
+      <header class="flex-fixed">
+        <div class="header-left-node">
+          <div>
+            <div class="logout">
+              <a >Welcome <span>{{firstName + " "}}{{lastName}}</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="header-middle-node">
+          <div>
+            <button class="global-header-button" ng-click="openCloseCreateMenu($event)" ng-class="{selected: createOpen}">
+              <!-- <i class="fa fa-angle-down"></i> -->
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <div class="flyout-view opened" ng-show="createOpen">
+              <div class="flyout">
+                <div class="flyout-header">Create</div>
+                <div class="flyout-content">
+                  <ul ng-click="openCloseCreateMenu($event)">
+                    <!-- <li><a ng-click="addClient()">Client</a></li> -->
+                    <li><a ng-click="addRoute()">Route</a></li>
+                    <li ng-show="UserProfile.$hasAnyRole(PermissionConstant.addSupplementaryTrip)"><a ng-click="addSupplementaryTrip()">Supplementary trip</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-right-node">
+          <div>
+            <div class="logout">
+              <a ng-click="logout()">Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div ui-view="" class="flex-flexible main-content flex-children"></div>
+      <div class="tooltip" ng-class="{hidden: !showTooltip, active: showTooltip}" ng-style="tooltipStyle">
+        <div class="tip">
+          <div class="tip-tip" ng-bind-html="tooltipTemplate">
+          </div>
+          <div class="tip-arrow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

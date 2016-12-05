@@ -1,0 +1,187 @@
+<div class="invoice-preview">
+  <div class="header-section">
+    <div class="title width70percent">
+      <span class="bold">Invoice</span>
+    </div>
+  </div>
+  <div class="content-section">
+    <table class="invoiceDetails" border="1">
+      <tr class="invisible">
+        <td class="sno"></td>
+        <td class="description"></td>
+        <td class="rate"></td>
+        <td class="amount"></td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="2" class="noborder leftAligned">
+          <div class="clientAddress">
+            <div>{{invoice.address.companyName}}</div>
+            <div ng-bind-html = "invoice.address.addressWithBrTag"></div>
+            <div>{{invoice.address.city}}, {{invoice.address.state}} - {{invoice.address.pincode}}</div>
+            <div><span class ="bold">PAN No. : </span> {{invoice.address.panNumber}}</div>
+            <div><span class="bold">K/Attn. : </span>{{invoice.address.name}}</div>
+          </div>
+        </td>
+        <td>Invoice no.</td>
+        <td class="rightAligned dateSection">
+          <div class="width90percent">{{invoice.invoiceNumber || "XXXXXXX"}}</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Invoice date</td>
+        <td class="rightAligned dateSection" ng-mouseover="dateEditable=true" ng-mouseleave="dateEditable=false">
+          <div class="width90percent">
+            <div class="description" ng-if="!editDate">{{invoice.creationDate.valueOf() | date: 'dd/MM/yyyy' || "XXXXXXX"}}</div>
+            <div class="input-group" ng-if="editDate">
+              <div class="date-picker inputIconDiv">
+                <input date-time auto-close="true" view="date" min-view="date" format="DD-MM-YYYY" ng-model="invoice.creationDate">
+                <i class="fa fa-calendar" focus-input></i>
+              </div>
+            </div>
+          </div>
+          <div class="width10percent" ng-show="editable">
+            <edit-pencil is-edit="editDate" ng-show="dateEditable"></edit-pencil>
+          </div>
+        </td>
+      </tr>
+      <tr class="gray">
+        <td>S.No.</td>
+        <td colspan="2">Description</td>
+        <td>Invoice amount</td>
+      </tr>
+      <tr ng-repeat="lineItem in invoice.invoiceLineItemDtoList">
+        <td>{{$index+1}}</td>
+        <td colspan="2" class="leftAligned" ng-mouseover="lineItem.isEditable=true" ng-mouseleave="lineItem.isEditable=false">
+          <div class="width90percent">
+            <div class="description" ng-if="!lineItem.isEdit">{{lineItem.description}}</div>
+            <div class="input-group" ng-if="lineItem.isEdit">
+              <textarea ng-model="lineItem.description"></textarea>
+            </div>
+          </div>
+          <div class="width10percent" ng-if="editable">
+            <edit-pencil is-edit="lineItem.isEdit" ng-show="lineItem.isEditable"></edit-pencil>
+            <a class="link" ng-show="lineItem.isEditable && $index!==0" ng-click="removeLineItem($index)" title="Remove item">
+              <span class="fa fa-minus"></span>
+            </a>
+          </div>
+        </td>
+        <td class="rightAligned">
+          <div class="description" ng-if="!lineItem.isEdit">{{lineItem.amount | number:2}}</div>
+          <div class="input-group" ng-if="lineItem.isEdit">
+            <input type="text" ng-model="lineItem.amount" />
+          </div>
+        </td>
+      </tr>
+      <tr class="empty" ng-mouseover="showAddMore=true" ng-mouseleave="showAddMore=false" ng-style="{'height': (350-30*(invoice.invoiceLineItemDtoList.length-1))+'px'}">
+        <td></td>
+        <td colspan="2">
+          <a class="link" ng-show="showAddMore && editable" ng-click="addmorelineitems()" title="Add more line items">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="4" >
+          <div class="form-field taxesInput" ng-show="editable && !panHasP">
+            <div class="input-group">
+              <input type="checkbox" id="includeTax" class="checkbox" ng-model="includeTaxes" />
+              <div class="field-label"><label for="includeTax">Include taxes</label></div>
+            </div>
+          </div>
+          <div class="flex-columns" ng-show="includeTaxes && editable">
+            <div class="form-field">
+              <div class="input-group">
+                <input type="radio" id="taxScheme1" name="taxScheme" class="radio" ng-model="taxScheme" value="scheme1" checked >
+                <div class="field-label"><label for="taxScheme1">
+                  S.Tax @ 14%,
+                  SBC @ 0.5%,
+                  KKC @ 0.5%
+                </label></div>
+              </div>
+              <div class="input-group">
+                <input type="radio" id="taxScheme2" name="taxScheme" class="radio" ng-model="taxScheme" value="scheme2">
+                <div class="field-label"><label for="taxScheme2">
+                  S.Tax @ 4.2%,
+                  SBC @ 0.15%,
+                  KKC @ 0.15%
+                </label></div>
+              </div>
+            </div>
+          </div>
+            <!-- <div class="input-group">
+              <input type="checkbox" id="applyDiscount" class="checkbox" ng-model="applyDiscount" />
+              <div class="field-label"><label for="applyDiscount">Apply discount</label></div>
+            </div> -->
+        </td>
+        <td>Total</td>
+        <td class="rightAligned">{{invoice.totalCost | number: 2}}</td>
+      </tr>
+      <tr>
+        <td><span ng-if="includeTaxes || panHasP">S.Tax @ {{salesTaxRate}}%</span>&nbsp;</td>
+        <td class="rightAligned"><span ng-if="includeTaxes || panHasP">{{invoice.serviceTaxAmount | number: 2}}</span></td>
+      </tr>
+      <tr>
+        <td><span ng-if="includeTaxes || panHasP">SBC @ {{sbcRate}}%</span>&nbsp;</td>
+        <td class="rightAligned"><span ng-if="includeTaxes || panHasP">{{invoice.sbcTaxAmount | number: 2}}</span></td>
+      </tr>
+      <tr>
+        <td><span ng-if="includeTaxes || panHasP">KKC @ {{kkcRate}}%</span>&nbsp;</td>
+        <td class="rightAligned"><span ng-if="includeTaxes || panHasP">{{invoice.kkcTaxAmount | number: 2}}</span></td>
+      </tr>
+      <tr ng-class="{gray: includeTaxes || panHasP}">
+        <td><span ng-if="includeTaxes || panHasP">Tax Total</span>&nbsp;</td>
+        <td class="rightAligned"><span ng-if="includeTaxes || panHasP">{{invoice.totalTax | number: 2}}</span></td>
+      </tr>
+      <!-- <tr ng-class="{gray: applyDiscount}">
+        <td><span ng-if="applyDiscount">Discount</span>&nbsp;</td>
+        <td class="rightAligned">
+          <span ng-if="applyDiscount">{{invoice.discountAmount | number: 2}}</span>
+          <div class="input-group" ng-show="applyDiscount && discountEdit">
+            <input type="text" ng-model="invoice.discountAmount" />
+          </div>
+        </td>
+      </tr> -->
+      <tr>
+        <td colspan="2" class="leftAligned">Description of charges: As per agreed terms.</td>
+        <td>
+          <div>GRAND TOTAL</div>
+          <input type="checkbox" id="roundOff" class="checkbox" ng-model="invoice.roundUp" ng-show="editable" />
+          <div class="field-label" style="font-size: 10px;" ng-show="editable"><label for="roundOff">Round off</label></div>
+        </td>
+        <td class="rightAligned">{{invoice.invoiceAmount | number: 2}}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="leftAligned">Rupees {{invoice.amountInWords | uppercase}}</td>
+        <td colspan="2"><span ng-if="!includeTaxes">Service Tax to be deposited by Customer</span></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="leftAligned">
+          <div class="bold">Terms and Conditions</div><br/>
+          <ol>
+            <li>All Payment to be made only through Account payee Cheque/DD/RTGS in favour of Rivigo Services Pvt. Ltd.</li>
+            <li>Interest @2% per month or part thereof will be charged if the bill is not paid on due date.</li>
+            <li>All disputes and differences arising out of this will be subject to jurisdiction of Gurgaon courts only.</li>
+          </ol>
+        </td>
+        <td colspan="2">
+          <b>For Rivigo Services Private Limited</b>
+          <br/><br/><br/><br/><br/><br/>
+          <b>Authorised Signatory</b>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4" class="leftAligned bold">Service Tax No. AAFCT0838FSD001</td>
+      </tr>
+      <tr>
+        <td colspan="4" class="leftAligned bold">PAN No. AAFCT0838F</td>
+      </tr>
+      <tr>
+        <td colspan="4" class="leftAligned bold">CIN No. U74999HR2014PTC053030</td>
+      </tr>
+    </table>
+  </div>
+</div>

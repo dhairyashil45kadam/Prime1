@@ -1,0 +1,21 @@
+@media print {
+  .global-dialog {
+    .dialog-header {
+      display: none;
+    }
+    .printable {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: $white;
+      > *:nth-of-type(1) {
+        margin: 150px auto;
+        width: 1000px;
+      }
+    }
+    .dialog-footer {
+      display: none;
+    }
+  }
+}

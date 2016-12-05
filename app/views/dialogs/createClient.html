@@ -1,0 +1,57 @@
+<div class="scrollable clientCreate">
+  <div class="alert-view" ng-show="showAlert">
+    <div class="alert-message"></div>
+  </div>
+  <div class="header">
+    <div class="text" ng-bind="headerText"></div>
+  </div>
+  <div class="clientProfile">
+    <form class="form clientform" name="addClientForm">
+      <div class="flex-stack info-container">
+        <div class="flex-columns clientInfo">
+          <div class="first">
+            <div class="form-field required">
+              <div class="field-label">Client name</div>
+              <div class="input-group">
+                <input type="text" ng-model="client.clientName"/>
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="field-label">Client registered name <span class="small">(as required on invoice)</span></div>
+              <div class="input-group">
+                <input type="text" ng-model="client.clientRegistrationName"/>
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="field-label">Business vertical</div>
+              <div class="input-group">
+                <input type="text" ng-model="client.businessVertical" />
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="field-label">Sub-vertical</div>
+              <div class="input-group">
+                <input type="text" ng-model="client.businessSubVertical" />
+              </div>
+            </div>
+            <div class="form-field">
+              <div class="field-label">Rivigo BD SPOC</div>
+              <div class="input-group">
+                <input type="text" ng-model="client.businessOwner" />
+              </div>
+            </div>
+          </div>
+
+          <div class="second">
+            <div class="form-field">
+              <div class="field-label">Client code</div>
+              <div class="input-group">
+                <input type="text" ng-model="client.code" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

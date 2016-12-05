@@ -1,0 +1,26 @@
+<div class="global-dialog flex-stack">
+  <div class="table dialog-header stretch flex-fixed">
+    <div class="tableRow">
+      <div class="tableCell header-text">
+        {{headingText}}
+      </div>
+      <i class="closeBtn tableCell" ng-click="close()">
+        <span></span>
+        <span></span>
+      </i>
+    </div>
+  </div>
+  <div class="dialog-content flex-flexible flex-columns">
+    <div id="dialog-content"></div>
+  </div>
+  <div class="table dialog-footer flex-fixed" ng-hide="hideFooter">
+    <div class="tableRow">
+      <div class="tableCell footer-left-button">
+        <button class="secondary" ng-click="close()">{{closeBtnText}}</button>
+      </div>
+      <div class="tableCell footer-right-button">
+        <button class="primary" ng-click="saveClicked()">{{saveBtnText}}</button>
+      </div>
+    </div>
+  </div>
+</div>

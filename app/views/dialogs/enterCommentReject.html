@@ -1,0 +1,12 @@
+<div class="flex-stack contactInfo form">
+  <div class="form-field">
+    <div class="field-label">Reason for Rejection</div>
+    <div class="input-group">
+      <input type="text" ng-model="comments" />
+    </div>
+  </div>
+  <div class="inlineButtons">
+      <button class="button-group-main secondary width40percent" ng-click="closeThisDialog()">Cancel</button>
+      <button class="primary floatRight" ng-disabled="!comments" ng-click="closeThisDialog(comments)">Reject</button>
+  </div>
+</div>

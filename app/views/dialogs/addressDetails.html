@@ -1,0 +1,69 @@
+<div class="flex-stack contactInfo form">
+  <div class="form-field">
+    <div class="field-label">Company name*</div>
+    <div class="input-group">
+      <input type="text" ng-model="addressDialog.companyName" />
+    </div>
+  </div>
+  <div class="form-field">
+    <div class="field-label">Contact name*</div>
+    <div class="input-group">
+      <input type="text" ng-model="addressDialog.name" />
+    </div>
+  </div>
+  <div class="form-field">
+    <div class="field-label">Phone</div>
+    <div class="input-group">
+      <input type="text" maxlength="15" ng-model="addressDialog.mobileNumber" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 0))" />
+    </div>
+  </div>
+  <div class="form-field">
+    <div class="field-label">Email</div>
+    <div class="input-group">
+      <input type="text" ng-model="addressDialog.email" />
+    </div>
+  </div>
+  <div class="form-field">
+    <div class="field-label">Pan Number</div>
+    <div class="input-group">
+      <input type="text" ng-model="addressDialog.panNumber" />
+    </div>
+  </div>
+  <div class="subSectionHeader">Billing address*</div>
+  <div class="addressFields">
+    <div class="form-field">
+      <div class="input-group">
+        <textarea name="addressLine1" placeholder="Address line" ng-model="addressDialog.address"></textarea>
+      </div>
+    </div>
+    <div class="addressLine2">
+      <div class="form-field">
+        <div class="input-group">
+          <input name="city" type="text" placeholder="City" ng-model="addressDialog.city" />
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="input-group">
+          <select ng-model="addressDialog.state" placeholder="State" ng-options="state as state for state in states">
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="addressLine2">
+      <div class="form-field">
+        <div class="input-group">
+          <input name="pincode" type="text" placeholder="Pincode" maxlength="6" ng-model="addressDialog.pincode" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actionButtons">
+    <div class="width40percent button-group">
+      <button class="button-group-main secondary" ng-click="closeThisDialog()">Cancel</button>
+    </div>
+    <div class="width40percent button-group">
+      <button class="button-group-main primary floatRight" ng-disabled="!(!!addressDialog.pincode && !!addressDialog.state && !!addressDialog.city && !!addressDialog.address && !!addressDialog.name && !!addressDialog.companyName)" ng-click="closeThisDialog(addressDialog)">Save</button>
+    </div>
+  </div>
+</div>

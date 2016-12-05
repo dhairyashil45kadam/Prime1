@@ -1,0 +1,95 @@
+<div class="scrollable">
+  <div class="alert-view" ng-show="showAlert">
+    <div class="alert-message" ng-bind="alertMessage"></div>
+  </div>
+  <div class="header">
+    <div class="text" ng-bind="headerText">Detention details</div>
+  </div>
+  <div class = "editHeader">
+    <span class = "vehNoHeader">
+      <span>{{"Trip code : " + detentionData.tripCode}}<span class="vehNoHeader">{{"Trip Billing Id: " + detentionData.id}}</span>
+    </span>
+  </div>
+  <div class="flex-columns" >
+    <div class="form-field first">
+      <div class="input-group">
+        <div class="bold" style="margin-top: 10%"><br><br>STARTING CLIENT WAREHOUSE</div>
+      </div>
+    </div>
+    <div class="form-field second">
+      <div class="field-label">CWH in time*</div>
+      <div class="input-group">
+        <div class="date-picker inputIconDiv" style="margin-top: 10%">
+          <input date-time auto-close="true" view="date" format="DD-MM-YYYY HH:mm" ng-model="filters.startcwhintime">
+          <i class="fa fa-calendar" focus-input></i>
+        </div>
+      </div>
+    </div>
+    <div class="form-field second">
+      <div class="field-label">CWH out time*</div>
+      <div class="input-group">
+        <div class="date-picker inputIconDiv" style="margin-top: 10%">
+          <input date-time auto-close="true" view="date" format="DD-MM-YYYY HH:mm" ng-model="filters.startcwhouttime">
+          <i class="fa fa-calendar" focus-input></i>
+        </div>
+      </div>
+    </div>
+    <div class="form-field second">
+      <div class="field-label">Delay(non negative)</div>
+      <div class="input-group">
+        <div class="inputIconDiv" style="margin-top: 10%">
+          <div style="margin-top: 15%">{{((filters.startcwhouttime-filters.startcwhintime)/3600000) | number:2}} </div>
+        </div>
+      </div>   
+    </div>
+    <div class="form-field second">
+      <div class="field-label">Enter delay manually(in hrs)</div>
+      <div class="input-group">
+        <div class="date-picker inputIconDiv" style="margin-top: 10%">
+          <input type="number" ng-model="filters.startcwhdelaymanual" >
+        </div>
+      </div>   
+    </div>
+  </div>  
+  <div class="flex-columns">
+    <div class="form-field first">
+      <div class="input-group">
+        <div class="bold" style="margin-top: 35%"><br><br>END CLIENT WAREHOUSE</div>
+      </div>
+    </div>
+    <div class="form-field second">
+      <div class="field-label" style="margin-top: 25%">CWH in time</div>
+      <div class="input-group">
+        <div class="date-picker inputIconDiv" style="margin-top: 10%">
+          <input date-time auto-close="true" view="date" format="DD-MM-YYYY HH:mm" ng-model="filters.endcwhintime" ng-change="onEndDateChange()">
+          <i class="fa fa-calendar" focus-input></i>
+        </div>
+      </div>
+    </div>
+    <div class="form-field second">
+      <div class="field-label" style="margin-top: 25%">CWH out time</div>
+      <div class="input-group">
+        <div class="date-picker inputIconDiv" style="margin-top: 10%">
+          <input date-time auto-close="true" view="date" format="DD-MM-YYYY HH:mm" ng-model="filters.endcwhouttime" ng-change="onEndDateChange()">
+          <i class="fa fa-calendar" focus-input></i>
+        </div>
+      </div>
+    </div>
+    <div class="form-field second">
+      <div class="field-label" style="margin-top: 25%">Delay(non negative)</div>
+      <div class="input-group">
+        <div class="inputIconDiv" style="margin-top: 10%">
+           <div style="margin-top: 15%">{{((filters.endcwhouttime-filters.endcwhintime)/3600000) | number:2}} </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-field second">
+      <div class="field-label" style="margin-top: 25%">Enter delay manually(in hrs)</div>
+      <div class="input-group">
+        <div class="date-picker inputIconDiv" style="margin-top: 10%">
+          <input type="number" ng-model="filters.endcwhdelaymanual" >
+        </div>
+      </div>   
+    </div>
+  </div>  
+</div>

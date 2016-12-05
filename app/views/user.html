@@ -1,0 +1,82 @@
+<div class="invoice">
+  <div class="closableSection" ng-class="{closeHead: !headOpen}">
+    <div class="titleSection clearfix">
+      <div class="title">Select User</div>
+      <div class="primaryActions">
+        <button-group dynamic-buttons="buttons" watch-changes="true"></button-group>
+      </div>
+    </div>
+    <div class="closableHeader filterSection form">
+      <div class="flex-stack">
+        <div class="flex-columns">
+          <div class="first-extended">
+            <div class="filter form-field user">
+              <div class="filterLabel field-label">User</div>
+              <div class="filterValue input-group">
+                <select ng-model="selectedUser" ng-options="user for user in allUsers" ng-change="onUserSelect(selectedUser)">
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="second-user" ng-show="addUser">
+            <div class="filter form-field user-email">
+              <div class="filterLabel field-label">User's Email Id</div>
+              <div class="filterValue input-group email">
+                <div class="input-group email">
+                  <input type="text" ng-change="checkEmail(addedUser)" ng-model="addedUser" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="submit-user" ng-show="addUser">
+            <div>
+              <button class="addUserButton primary" ng-disabled="!addedUser || !isEmailContain" ng-click="addUserList(addedUser)">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="closeBtn" ng-click="headOpen = !headOpen">
+      <i class="fa fa-angle-up"></i>
+    </div>
+  </div>
+
+  <div class="content" ng-show="selectedUser">
+    <div class="searchBar inputIconDiv">
+      <input type="text" ng-model="q" placeholder="search" />
+      <i class="fa fa-search"></i>
+    </div>
+
+    <div class="closableHeader filterSection form">
+      <div class="flex-stack">
+        <div class="flex-columns">
+          <div class="first">
+            <div class="module-container clientDashboardTable">
+              <table-view page-data="clientTable" data="clients" filter-by="q"></table-view>
+            </div>
+          </div>
+          <div class="withSpace">
+            <div class="flex-stack">
+              <div class="flex-columns">
+                <div class="first-clients">
+                  <div class="filter form-field user-email">
+                    <div class="filterLabel field-label">Clients</div>
+                    <div class="multi-select multiSelectBox">
+                      <isteven-multi-select input-model="allClients" output-model="selectedClients" button-label="clientName" item-label="clientName" tick-property="ticked"></isteven-multi-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="submit-user">
+                  <div>
+                    <button class="submitClientButton primary" ng-click="saveClients()">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

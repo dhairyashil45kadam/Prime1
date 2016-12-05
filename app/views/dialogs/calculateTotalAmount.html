@@ -1,0 +1,19 @@
+<div class="totalAmounts">
+  <div class="totalInvoice">Selected invoices    <b>{{selectedTrips.length}}</b></div>
+  <span>Totals:</span>
+  <div class="details">Base rate  <span class="detailsValue">{{totals.computeTotalObj.baseRate}}</span></div>
+  <div class="details">Fuel surcharge  <span class="detailsValue">{{totals.computeTotalObj.fuelSurcharge}}</span></div>
+  <div class="details">Loading Detention  <span class="detailsValue">{{totals.computeTotalObj.loadingDetention}}</span></div>
+  <div class="details">Unloading Detention  <span class="detailsValue">{{totals.computeTotalObj.unloadingDetention}}</span></div>
+  <div class="details">Late charge  <span class="detailsValue">{{totals.computeTotalObj.lateCharge}}</span></div>
+  <div class="details">Loading  <span class="detailsValue">{{totals.computeTotalObj.loading}}</span></div>
+  <div class="details">Unloading  <span class="detailsValue">{{totals.computeTotalObj.unloading}}</span></div>
+  <div class="details">Green tax  <span class="detailsValue">{{totals.computeTotalObj.greenTax}}</span></div>
+  <div class="details">Other Charges  <span class="detailsValue">{{totals.computeTotalObj.otherCharges}}</span></div>
+  <div class="details">Invoice amount  <span class="detailsValue">{{totals.computeTotalObj.invoiceAmount}}</span></div>
+  <div class="actionButtons" style="text-align: right">
+    <div class="button-group">
+      <button class="button-group-main secondary floatRight" ng-click="closeThisDialog()">OK</button>
+    </div>
+  </div>
+</div>

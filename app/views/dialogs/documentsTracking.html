@@ -1,0 +1,43 @@
+<div class="scrollable">
+  <div class="alert-view" ng-show="showAlert">
+    <div class="alert-message"></div>
+  </div>
+  <div class="header">
+    <div class="text" ng-bind="headerText"></div>
+  </div>
+  <div class="upload-docs">
+    <form class="form">
+      <ul>
+        <li ng-repeat="document in documents">
+          <div class="flex-columns">
+            <div class="first">{{document.documentName}}</div>
+            <div class="second">
+              <div class="input-group" ng-show="!document.documentURL">
+                <input type="file" accept="image/x-png, image/gif, image/jpeg" name="{{document.documentName}}" onchange="angular.element(this).scope().uploadFiles(this)"/>
+              </div>
+              <div class="uploadDoc" ng-show="document.documentURL">
+                <div class="doc-photo-viewer clearfix">
+                  <span class="doc-placeholder">
+                    <img image-zoom ng-src="{{document.documentURL}}" alt=""/>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div ng-show="document.documentURL">
+                <span class="fa-stack fa-lg reviewed" class="width30percent" ng-show="document.verified">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="fa-stack fa-lg reviewed" class="width30percent" ng-show="!document.verified">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

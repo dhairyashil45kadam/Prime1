@@ -1,0 +1,228 @@
+<div class="scrollable routeDetails">
+  <div class="alert-view" ng-show="showAlert">
+    <div class="alert-message" ng-bind="alertMessage"></div>
+  </div>
+  <div class="co_body">
+    <ul class="co-content">
+      <li>
+        <div class="co-panel" ng-class="{open: steps[0].inProgress, closed: !steps[0].inProgress, completed: steps[0].completed && !steps[0].inProgress}">
+          <div class="panel-header">
+            <div class="heading-bar">
+              <div class="title">
+                <span>1. Select client route</span>
+              </div>
+            </div>
+            <div class="review-bar">
+              <a class="collapsed-state">
+                <div class="summary width70percent">
+                  <div class="title width30percent">
+                    <span>1. Client route</span>
+                  </div>
+                  <div class="title width70percent">
+                    <div class="width20percent">{{route.client.clientName}}</div>
+                    <span class="width40percent heading">{{route.clientRoute.displayName}}</span>
+                    <span class="width20percent heading">{{route.vehicleType}}</span>
+                    <span class="width20percent heading">{{route.tripType}}</span>
+                  </div>
+                </div>
+                <div class="width30percent">
+                  <div class="width70percent">
+                    <button class="button-group-main secondary" ng-click="changeSelection()">Change</button>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="panel-body collapse" ng-class="{in: steps[0].inProgress}">
+            <div class="form-field first">
+              <div class="field-label">Client</div>
+              <div class="input-group">
+                <select ng-model="route.client" ng-options="client as client.clientName for client in clients" ng-change="onClientSelect()">
+                </select>
+              </div>
+            </div>
+            <div class="flex-columns">
+              <div class="form-field first">
+                <div class="field-label">Select client route</div>
+                <div class="input-group multi-select">
+                  <isteven-multi-select input-model="clientRoutes" output-model="clientRouteForRouteObj"  button-label="routeName" item-label="displayName" tick-property="ticked" selection-mode="single"></isteven-multi-select>
+                </div>
+            </div>
+              <div class="form-field second">
+                <div class="field-label">Trip type</div>
+                <div class="input-group">
+                  <select ng-model="route.tripType" ng-options="tripType.value as tripType.text for tripType in tripTypes" ng-change="filterRatesEntry()"></select>
+                </div>
+              </div>
+              <div class="form-field second">
+                <div class="field-label">Vehicle type</div>
+                <div class="input-group">
+                  <select ng-model="route.vehicleType" ng-options="vehicleType as vehicleType for vehicleType in vehicleTypes" ng-change="filterRatesEntry()"></select>
+                </div>
+              </div>
+            </div>
+            <div class="existingEntries" ng-if="rateAlreadyPresent">
+              <table-view page-data="routeRateTableData" data="existingRatesFiltered"></table-view>
+            </div>
+            <div class="panel-footer" ng-if="showAddRateButton()">
+              <div class="width30percent button-group" ng-show = "UserProfile.$hasAnyRole(PermissionConstant.addRoute)">
+                <button class="button-group-main primary" ng-click="addRate()">Next</button>
+                <!-- <button class="primary" ng-click="closeInvoices=!closeInvoices; openPayment= true;">Continue</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="co-panel" ng-class="{open: steps[1].inProgress, closed: !steps[1].inProgress, completed: steps[1].completed && !steps[1].inProgress}">
+          <div class="panel-header">
+            <div class="heading-bar">
+              <div class="title">
+                <span>2. Enter rate details</span>
+              </div>
+            </div>
+            <div class="next-heading title">
+              <span>2. Rate details</span>
+            </div>
+          </div>
+          <div class="panel-body collapse" ng-class="{in: steps[1].inProgress}">
+            <div class="flex-stack form">
+              <div class="flex-columns ratesInfo">
+                <div class="first">
+                  <div class="form-field">
+                    <div class="field-label">Base rate*</div>
+                    <div class="input-group">
+                      <input type="text" ng-model="route.baseRate" required/>
+                    </div>
+                  </div>
+                  <div class="form-field" ng-show="clientBillingDetails.detention">
+                    <div class="field-label">Loading Detention</div>
+                    <div class="input-group">
+                      <input type="text" ng-model="route.loadingDetention" />
+                    </div>
+                  </div>
+                  <div class="form-field" ng-show="clientBillingDetails.detention">
+                    <div class="field-label">Unloading Detention</div>
+                    <div class="input-group">
+                      <input type="text" ng-model="route.unloadingDetention" />
+                    </div>
+                  </div>
+                  <div class="form-field" ng-show="clientBillingDetails.lateDeduction">
+                    <div class="field-label">Late charge</div>
+                    <div class="input-group">
+                      <input type="text" ng-model="route.lateCharge" />
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <div class="field-label">Loading</div>
+                    <div class="input-group">
+                      <input type="text" ng-model="route.loading"/>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <div class="field-label">Unloading</div>
+                    <div class="input-group">
+                      <input type="text" ng-model="route.unloading" />
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <div class="field-label">Green tax</div>
+                    <div class="input-group">
+                      <input type="text" ng-model="route.greenTax"/>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <div class="field-label">Other Charges</div>
+                    <div class="input-group">
+                      <input type="text" ng-model="route.otherCharges"/>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <div class="field-label">Applicable from*</div>
+                    <div class="input-group">
+                      <div class="date-picker inputIconDiv">
+                        <input date-time auto-close="true" name="applicableFromDate" view="date" min-view="date" format="DD-MM-YYYY" ng-model="route.applicableFromDate" date-change="updateDate" required>
+                        <i class="fa fa-calendar" focus-input required></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="second">
+                  <div ng-show="clientBillingDetails.fuelSurcharge">
+                    <div class="form-field">
+                      <div class="field-label">Fuel base rate*</div>
+                      <div class="input-group">
+                        <input type="text" ng-model="route.clientRouteFuelDetailDto.fuelBaseRate" required/>
+                      </div>
+                    </div>
+                    <div ng-if="clientBillingDetails.fuelSurchargeType === 'BASERATE_CLAUSE'">
+                      <div class="form-field">
+                        <div class="field-label">Fuel component in base rate(in %)*</div>
+                        <div class="input-group">
+                          <input type="text" ng-model="route.clientRouteFuelDetailDto.baseRateComponent" required/>
+                        </div>
+                      </div>
+                    </div>
+                    <div ng-if="clientBillingDetails.fuelSurchargeType === 'MILEAGE_CLAUSE'">
+                      <div class="form-field">
+                        <div class="field-label">Total distance*</div>
+                        <div class="input-group">
+                          <input type="text" ng-model="route.clientRouteFuelDetailDto.totalDistance" required/>
+                        </div>
+                      </div>
+                      <div class="form-field">
+                        <div class="field-label">Mileage*</div>
+                        <div class="input-group">
+                          <input type="text" ng-model="route.clientRouteFuelDetailDto.mileage" required/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-field">
+                      <div class="field-label">Fuel surcharge applicable above (in %)?*</div>
+                      <div class="input-group">
+                        <input type="text" ng-model="route.clientRouteFuelDetailDto.applicableAbove" required/>
+                      </div>
+                    </div><div class="form-field">
+                      <div class="field-label">Surcharge base value (in %)*</div>
+                      <div class="input-group">
+                        <input type="text" ng-model="route.clientRouteFuelDetailDto.baseValue" required/>
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-show="clientBillingDetails.fuelSurcharge">
+                  <div class="form-field">
+                    <div class="field-label">Consideration value*</div>
+                    <div class="input-group">
+                      <input type="number" ng-model="route.clientRouteFuelDetailDto.considerationPart" required/>
+                    </div>
+                  </div>
+                </div>
+                <div ng-show="clientBillingDetails.fuelSurcharge">
+                  <div class="form-field">
+                    <div class="field-label">Fuel rate change*</div>
+                    <div class="input-group">
+                      <select ng-model="route.clientRouteFuelDetailDto.fuelRateChangeType" ng-options="fuelRate.value as fuelRate.text for fuelRate in fuelRateTypes" required>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-field first">
+                <div class="input-group">
+                  <div class="field-label">Attachments</div>
+                  <input id="contractFile" accept="application/pdf,image/jpeg" name="contractFile" type="file"
+                             onchange="angular.element(this).scope().uplaodFiles(this)" required/>
+                  <!-- <div class="field-label">Attachments</div>
+                  <input type="file" /> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>

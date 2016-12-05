@@ -1,0 +1,275 @@
+//urls
+$url_0: url(/images/check.png);
+$url_1: url(/images/off.png);
+$url_2: url(/images/radio.png);
+
+//@extend-elements
+%extend_1 {
+	outline: none;
+	height: 34px;
+	border: 1px solid $color_pumice_approx;
+	padding: 0 8px;
+	@include background-clip(border-box);
+	@include border-radius(2px);
+	@include transition-property(border);
+	@include transition-duration(0.35s);
+	font-size: 1.0rem;
+	@include box-sizing(border-box);
+	width: 100%;
+	vertical-align: middle;
+	@include rivigofont();
+}
+%extend_2 {
+	display: block;
+	margin: 7px 0 0;
+	padding: 0;
+}
+%extend_3 {
+	opacity: 0;
+	float: left;
+	width: 18px;
+	height: 18px;
+}
+%extend_4 {
+	margin: 0;
+	clear: none;
+	padding: 5px 0 4px 24px;
+	cursor: pointer;
+	background: $url_1 left center no-repeat;
+}
+
+.form {
+  padding-left: 5px;
+
+  .first {
+    width: 35%;
+  }
+	.first-extended {
+		width: 70%;
+	}
+	.first-clients {
+		width: 80%;
+	}
+	.half {
+    width: 45%;
+  }
+  .second {
+    width: 40%;
+    padding-left: 40px;
+  }
+	.second-user {
+    width: 40%;
+  }
+	.submit-user {
+		width: 15%;
+	}
+	.withSpace {
+		padding-left: 200px;
+		padding-right: 0px;
+		width: 60%;
+	}
+	.space {
+		padding-left: 100px;
+		padding-right: 0px;
+	}
+}
+.form-field {
+	width: 100%;
+	@include box-sizing(border-box);
+	padding-bottom: 10px;
+	margin: 0;
+	display: block;
+	@include transition(all 0.3s linear);
+	&.ng-hide {
+		opacity: 0;
+		height: 0;
+	}
+	&.user {
+		width: 70%;
+	}
+	&.user-email {
+		width: 100%;
+	}
+	&.required {
+		.field-label:before {
+			content: "*";
+			color: $red;
+			font-size: 1.0em;
+			margin-right: 2px;
+		}
+		.input-group input.ng-invalid {
+			border: 1px solid $color_alizarin_crimson_approx;
+		}
+	}
+	&.check-section {
+		display: inline-block;
+		float: left;
+		width: 42%;
+	}
+	&.has-error {
+		.field-label{
+			color: $red;
+		}
+	}
+	.field-label {
+		vertical-align: middle;
+		font-weight: 700;
+		display: block;
+		margin-top: 9px;
+		margin-bottom: 7px;
+		font-size: 14px;
+		.small {
+			font-size: 10px;
+		}
+
+		&.center {
+			text-align: center;
+		}
+	}
+	.input-group {
+		display: inline-block;
+		border: 0;
+		padding: 0;
+		vertical-align: middle;
+		width: 80%;
+
+		&.center {
+			text-align: center;
+			width: 100%;
+		}
+		&.email{
+			width: 96%;
+		}
+
+		&.sub-group {
+			margin-left: 20px;
+		}
+		.field-label.inline {
+			display: inline-block !important;
+			padding-right: 10px;
+		}
+	}
+}
+
+.date-picker input, input[type='text'], input[type='number'], select, textarea {
+	@extend %extend_1;
+	&:not(:disabled) {
+		background-color: $white;
+		&.error, &.ng-invalid.ng-touched {
+			border-color: $color_punch_approx !important;
+			color: $color_punch_approx !important;
+		}
+		&:hover {
+			border-color: $color_star_dust_approx;
+			@include box-shadow(0 0 0 2px $color_star_dust_25_approx);
+		}
+	}
+}
+
+div[date-picker-wrapper] {
+	table {
+		width: 250px;
+		border: 1px solid $gray-cc;
+		margin: 0px;
+	}
+}
+
+textarea {
+	height: 60px;
+	padding-top: 4px;
+	resize: none;
+}
+input {
+	&.checkbox {
+		@extend %extend_2;
+	}
+	&.radio {
+		@extend %extend_2;
+	}
+}
+input[type='radio'] {
+	@extend %extend_3;
+	&:checked {
+		+ .field-label, + .index {
+			background-image: $url_2;
+		}
+	}
+	+ .field-label, +.index {
+		@extend %extend_4;
+	}
+}
+input[type='checkbox'] {
+	@extend %extend_3;
+	&:checked {
+		+ .field-label, + .index {
+			background-image: $url_0;
+		}
+	}
+	+ .field-label, + .index {
+		@extend %extend_4;
+	}
+}
+input[type='file']::-webkit-file-upload-button {
+	visibility: hidden;
+}
+input[type='file']::before {
+	content: 'Select file';
+	display: inline-block;
+	border: 1px solid $color_mountain_mist_approx;
+	@include border-radius(3px);
+	padding: 5px 8px;
+	outline: none;
+	white-space: nowrap;
+	cursor: pointer;
+	@include text-shadow(1px 1px #fff);
+	font-weight: 700;
+	font-size: 10pt;
+}
+input[type='file'] {
+	&:hover::before {
+		border-color: $black;
+	}
+	&:active {
+		outline: none;
+	}
+	&:focus {
+		outline: none;
+	}
+}
+.multi-select {
+  display: inline-block;
+  vertical-align: middle;
+	width: 80%;
+  .multiSelect {
+    >button {
+      width: 100%;
+      overflow: auto;
+    }
+
+    button {
+      min-width: 0px;
+			max-height: 34px;
+    }
+
+    .clearButton {
+      right: 20px;
+    }
+
+    .checkBoxContainer {
+      max-height: 150px;
+      overflow: auto;
+      overflow-x: hidden;
+    }
+
+    .multiSelectItem {
+      font-size: 80%;
+      min-height: 0px;
+
+      .acol {
+        label {
+          width: auto;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+<div class="scrollable paymentSettlement co_body">
+  <ul class="co-content">
+    <li class="invoices">
+      <div class="co-panel" ng-class="{open: !closeInvoices, closed: closeInvoices, completed: closeInvoices}">
+        <div class="panel-header">
+          <div class="heading-bar">
+            <div class="title">
+              <span>1. Invoice summary</span>
+              <i>{{invoices.length}} items</i>
+            </div>
+          </div>
+          <div class="review-bar" ng-hide="!closeInvoices">
+            <a class="collapsed-state">
+              <div class="summary width70percent">
+                <div class="title width30percent">
+                  <span>1. Invoice summary</span>
+                </div>
+                <div class="title width30percent">
+                  <div class="width30percent">{{invoices.length}} items</div>
+                  <span class="width70percent heading">Rs.{{totalBalance}}</span>
+                </div>
+              </div>
+              <div class="width30percent">
+                <div class="width70percent">
+                  <button-group dynamic-buttons="reviewAction" watch-changes="true"></button-group>
+                </div>
+                <span class="fa-stack fa-lg reviewed" class="width30percent">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="panel-body collapse" ng-class="{in: !closeInvoices}">
+          <table-view page-data="paymentTableData" data="invoices"></table-view>
+          <div class="panel-footer">
+            <div class="width30percent">
+              <button-group dynamic-buttons="continueAction" watch-changes="true"></button-group>
+              <!-- <button class="primary" ng-click="closeInvoices=!closeInvoices; openPayment= true;">Continue</button> -->
+            </div>
+            <div class="width70percent title">
+              <div class="width30percent">Total amount</div>
+              <span class="width70percent heading">Rs.{{totalBalance}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="payment">
+      <div class="co-panel" ng-class="{open: openPayment, closed: !openPayment}">
+        <div class="panel-header">
+          <div class="next-heading title" ng-show="!openPayment">
+            <span class="panel-disabled"></span>
+            <span>2. Payment details</span>
+          </div>
+          <div class="heading-bar">
+            <div class="title">
+              <span>2. Payment details</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body collapse" ng-class="{in: openPayment}">
+          <form class="form" name="addClientForm">
+            <div class="flex-stack">
+              <div class="flex-columns">
+                <div class="first">
+                  <div class="form-field required">
+                    <div class="field-label">RTGS/ NEFT/ Cheque no</div>
+                    <div class="input-group">
+                      <input type="text" ng-model="paymentDetails.chequeNo"/>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <div class="field-label">Bank name</div>
+                    <div class="input-group">
+                      <input type="text" ng-model="paymentDetails.bankName"/>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <div class="field-label">Payment date</div>
+                    <div class="input-group">
+                      <div class="date-picker inputIconDiv">
+                  			<input date-time auto-close="true" view="date" min-view="date" format="DD-MM-YYYY" ng-model="paymentDetails.paymentDate" date-change="updateDate">
+                        <i class="fa fa-calendar"></i>
+                  		</div>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <div class="field-label">UTR no.</div>
+                    <div class="input-group">
+                      <input type="text" ng-model="paymentDetails.uniqueTransactionNo" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

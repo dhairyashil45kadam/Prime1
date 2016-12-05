@@ -1,0 +1,64 @@
+<div class="payment">
+  <div class="closableSection" ng-class="{closeHead: !headOpen}">
+    <div class="titleSection clearfix">
+      <div class="title">Payment settlement</div>
+      <div class="primaryActions">
+        <button class="primary" ng-click="settlePayment()" ng-disabled="disableSettlement()">Settle payment</button>
+      </div>
+    </div>
+    <div class="closableHeader filterSection form">
+      <div class="flex-stack">
+        <div class="flex-columns">
+          <div class="first">
+            <div class="sectionHeader">Filters</div>
+            <div class="filter form-field">
+              <div class="filterLabel field-label">Client</div>
+              <div class="filterValue input-group">
+                <select ng-model="clientId" ng-options="client.id as client.clientName for client in clients" ng-change="onClientSelect()">
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="second">
+            <div class="subSectionHeader">Date range</div>
+            <div class="flex-columns">
+              <div class="filter form-field">
+                <div class="filterLabel field-label">From</div>
+                <div class="filterValue input-group">
+                  <div class="date-picker inputIconDiv">
+              			<input date-time auto-close="true" view="date" format="DD-MM-YYYY HH:mm" ng-model="invoiceFromDate">
+                    <i class="fa fa-calendar" focus-input></i>
+              		</div>
+                </div>
+              </div>
+              <div class="filter form-field">
+                <div class="filterLabel field-label">To</div>
+                <div class="filterValue input-group">
+                  <div class="date-picker inputIconDiv">
+              			<input date-time auto-close="true" view="date" format="DD-MM-YYYY HH:mm" ng-model="invoiceToDate">
+                    <i class="fa fa-calendar" focus-input></i>
+              		</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filterBtn button-group">
+          <button class="button-group-main primary">Filter</button>
+        </div>
+      </div>
+    </div>
+    <div class="closeBtn" ng-click="headOpen = !headOpen">
+      <i class="fa fa-angle-up"></i>
+    </div>
+  </div>
+  <div class="content">
+    <div class="searchBar inputIconDiv">
+      <input type="text" ng-model="q" placeholder="search" />
+      <i class="fa fa-search"></i>
+    </div>
+    <div class="payments">
+      <table-view page-data="paymentTableData" data="pendingInvoices" filter-by="q"></table-view>
+    </div>
+  </div>
+</div>

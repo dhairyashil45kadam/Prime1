@@ -1,0 +1,16 @@
+<div class="client">
+  <div class="closableSection" ng-class="{closeHead: !headOpen}">
+    <div class="titleSection clearfix">
+      <div class="title">All clients</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="module-container clientDashboardTable">
+      <div class="searchBar inputIconDiv">
+          <input type="text" ng-model="q" placeholder="search" />
+          <i class="fa fa-search"></i>
+        </div>
+      <table-view page-data="clientTable" data="showClients" filter-by="q"></table-view>
+    </div>
+  </div>
+</div>

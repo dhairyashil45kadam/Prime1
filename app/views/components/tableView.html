@@ -1,0 +1,54 @@
+<div class="greenHeader">
+  <div class="tableHeader">
+    <table>
+      <thead>
+        <tr>
+          <th class="sno" ng-hide="pageData.hideSerialNo">
+            <span ng-show="pageData.selectable">
+              <input type="checkbox" class="checkbox" id="checkbox" ng-model="selectAll" ng-change="addAllSelected()"/>
+              <label for="checkbox" class="index"></label>
+            </span>
+            <strong>#</strong>
+          </th>
+          <th ng-repeat="column in pageData.columns track by $index" ng-show="showColumn(column)" ng-attr-class="{{column.className}}">{{column.label}}
+          </th>
+          <th class="actions" ng-hide="pageData.hideActions">Actions</th>
+        </tr>
+        <tr class="arrows">
+          <th class="sno" ng-hide="pageData.hideSerialNo"></th>
+          <th ng-repeat="column in pageData.columns track by $index" ng-show="showColumn(column)" ng-attr-class="{{column.className}}">
+            <div class="down-arrow" ng-if="column.showDownArrow"></div>
+          </th>
+          <th class="actions" ng-hide="pageData.hideActions"></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tableBody" id="tableBody"></div>
+    <!-- <table>
+      <tbody>
+        <tr ng-repeat="row in data | filter: filterBy track by $index" ng-mouseover="showTooltip($event, pageData, row)" ng-mouseleave="hideTooltip($event, pageData, row)">
+          <td class="sno" ng-hide="pageData.hideSerialNo">
+            <span ng-show="pageData.selectable">
+              <input type="checkbox" class="checkbox" ng-attr-id="{{'checkbox'+ $index}}" ng-model="row.selected" ng-change="addSelected(row)"/>
+              <label ng-attr-for="{{'checkbox'+ $index}}" class="index"></label>
+            </span>
+            <strong>{{$index + 1}}</strong>
+          </td>
+          <td ng-repeat="column in pageData.columns track by $index" ng-show="showColumn(column)" ng-click="onActionClick(column.onclick, row)" ng-class="{'columnPointer':column.onclick}" ng-attr-class="{{column.className}}" ng-mouseover="showTooltip($event, column, row)" ng-mouseleave="hideTooltip($event, column, row)">
+            <div ng-if="!isEditable(column, row)" ng-bind-html="showColumnValue(column, row)"></div>
+            <div ng-if="isEditable(column, row)" class="editable">
+              <span class="input-group" ng-switch="column.editArgs.editType">
+                <input ng-switch-when="text" type="text" ng-model="row[column.editArgs.ngModel]" ng-required="column.editArgs.required"  ng-blur="inputChanged($event, column.editArgs.onChange)" />
+                <input ng-switch-when="number" type="text" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode === 46)" ng-model="row[column.editArgs.ngModel]" ng-blur="inputChanged($event, column.editArgs.onChange)" ng-required="column.editArgs.required" />
+                <input ng-switch-when="checkbox" type="checkbox" ng-model="row[column.editArgs.ngModel]" ng-required="column.editArgs.required"  ng-blur="inputChanged($event, column.editArgs.onChange)" />
+              </span>
+            </div>
+          </td>
+          <td class="rightAligned actions" ng-hide="pageData.hideActions">
+            <button-group buttons="pageData.actions" extra-args="row"></button-group>
+          </td>
+        </tr>
+      </tbody>
+    </table> -->
+</div>

@@ -1,0 +1,90 @@
+
+<div class="scrollable">
+  <div class="alert-view" ng-show="showAlert">
+    <div class="alert-message" ng-bind="alertMessage"></div>
+  </div>
+  <!-- <div class="header">
+    <div class="text">E</div>
+  </div> -->
+  <div class="co_body">
+    <ul class="co-content">
+      <li>
+        <div class="co-panel" ng-class="{open: steps[0].inProgress, closed: !steps[0].inProgress, completed: steps[0].completed && !steps[0].inProgress}">
+          <div class="panel-header">
+            <div class="heading-bar">
+              <div class="title">
+                <span>1. Select client address</span>
+              </div>
+            </div>
+            <div class="review-bar">
+              <a class="collapsed-state">
+                <div class="summary width70percent">
+                  <div class="title width30percent">
+                    <span>1. Client address</span>
+                  </div>
+                  <div class="title width70percent">
+                  </div>
+                </div>
+                <div class="width30percent">
+                  <div class="width70percent">
+                    <button class="button-group-main secondary" ng-click="changeSelection()">Change address</button>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="panel-body collapse" ng-class="{in: steps[0].inProgress}">
+            <ul class="addresses">
+              <li ng-repeat="address in addresses">
+                <div class="addressDetails" ng-class="{selected: selectedAddressIndex==$index}" ng-click="selectAddress($index)">
+                  <a class="addressItems">
+                    <div class="name">{{address.name}}</div>
+                    <p>{{address.address}}</p>
+                    <p>{{address.city}}, {{address.state}}</p>
+                    <p>{{address.pincode}}</p>
+                    <p>{{address.email}}</p>
+                    <span class="phone">{{address.mobileNumber}}</span>
+                  </a>
+                  <div class="action-icons">
+                    <a class="fa fa-check link" ng-show="selectedAddressIndex==$index"></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="panel-footer">
+              <div class="width30percent button-group">
+                <button class="button-group-main primary" ng-click="moveToNextStep()">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="co-panel" ng-class="{open: steps[1].inProgress, closed: !steps[1].inProgress, completed: steps[1].completed && !steps[1].inProgress}">
+          <div class="panel-header">
+            <div class="heading-bar">
+              <div class="title">
+                <span>2. Invoice</span>
+              </div>
+            </div>
+            <div class="next-heading title">
+              <span>2. Invoice</span>
+            </div>
+          </div>
+          <div class="panel-body collapse" ng-class="{in: steps[1].inProgress}">
+            <div class="form-field">
+              <div class="field-label center">Select Additional Charges</div>
+              <div class="input-group center">
+                <div class="multi-select multiSelectBox">
+                  <isteven-multi-select input-model="chargeTypeInInvoice" output-model="charges"  button-label="text" item-label="text" tick-property="ticked"></isteven-multi-select>
+                </div>
+                <button class="custom-padding primary" ng-click="addAdditionalCharges()">Add Charges</button>
+              </div>
+            </div>
+            <preview-invoice invoice-details="invoiceDetails" editable="true"></preview-invoice>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

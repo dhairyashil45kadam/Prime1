@@ -1,0 +1,32 @@
+<div class="flex-stack contactInfo form">
+  <div class="form-field">
+    <div class="field-label">Upload</div>
+    <input id="contractFile" accept="application/pdf,image/jpeg" name="contractFile" type="file"
+               onchange="angular.element(this).scope().uplaodFiles(this)"/>
+</div>
+<div class="form-field" ng-show ="fileDialog.documentUrl">
+  <div class = "uploadView">
+    <p><a href ={{fileDialog.documentUrl}} target="_blank">Document url</a></p>
+  </div>
+</div>
+<div class="form-field">
+  <div class="field-label">Document client type</div>
+  <div class="input-group">
+    <select ng-model="fileDialog.documentClientType" ng-options="documentClientType.text as documentClientType.value  for documentClientType in documentClientTypes"></select>
+  </div>
+</div>
+<div class="form-field">
+  <div class="field-label">Document type</div>
+  <div class="input-group">
+    <select ng-model="fileDialog.documentType" ng-options="documentType.text as documentType.value  for documentType in documentTypes"></select>
+  </div>
+</div>
+  <div class="actionButtons" ng-show="!fileDialog.documentUrl">
+    <div class="width40percent button-group">
+      <button class="button-group-main secondary" ng-click="closeThisDialog()">Cancel</button>
+    </div>
+    <div class="width40percent button-group" ng-show="!fileDialog.documentUrl">
+      <button class="button-group-main primary floatRight" ng-click="closeThisDialog(fileDialog)">Save</button>
+    </div>
+  </div>
+</div>

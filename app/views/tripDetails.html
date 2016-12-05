@@ -1,0 +1,88 @@
+<div class="invoice">
+  <div class="closableSection" ng-class="{closeHead: !headOpen}">
+    <div class="titleSection clearfix">
+      <div class="title">Trip Details</div>
+      <div class="primaryActions">
+        <!-- <button class="primary" ng-click="previewInvoice()">Generate invoice</button> -->
+        <button-group dynamic-buttons="buttons"></button-group>
+      </div>
+    </div>
+    <div class="closableHeader filterSection form">
+      <div class="flex-stack">
+        <div class="flex-columns">
+          <div class="first">
+            <div class="sectionHeader">Filters</div>
+            <div class="filter form-field">
+              <div class="filterLabel field-label">Client</div>
+              <div class="filterValue input-group">
+                <select ng-model="filters.client" ng-options="client as client.clientName for client in clients" ng-change="onClientSelect()">
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="second">
+            <div class="form-field">
+              <div class="input-group">
+                <input type="checkbox" id="dateFilter" class="checkbox" ng-model="filters.dateFilter" />
+                <div class="field-label"><label for="dateFilter">Filter by trip dates</label></div>
+              </div>
+            </div>
+            <div class="flex-stack" ng-class="{disabled: !filters.dateFilter}">
+              <div class="flex-columns">
+                <div class="form-field">
+                  <div class="input-group">
+                    <input type="radio" id="tripStartFilter" name="tripDatesFilter" class="radio" ng-model="filters.tripDatesFilter" value="START" checked />
+                    <div class="field-label"><label for="tripStartFilter">Trip start range</label></div>
+                  </div>
+                </div>
+                <div class="form-field">
+                  <div class="input-group">
+                    <input type="radio" id="tripEndFilter" name="tripDatesFilter" class="radio" ng-model="filters.tripDatesFilter" value="END"/>
+                    <div class="field-label"><label for="tripEndFilter">Trip closure range</label></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-columns">
+                <div class="filter form-field">
+                  <div class="filterLabel field-label">From</div>
+                  <div class="filterValue input-group">
+                    <div class="date-picker inputIconDiv">
+                      <input date-time auto-close="true" view="date" format="DD-MM-YYYY HH:mm" ng-model="filters.fromDate">
+                      <i class="fa fa-calendar" focus-input></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="filter form-field">
+                  <div class="filterLabel field-label">To</div>
+                  <div class="filterValue input-group">
+                    <div class="date-picker inputIconDiv">
+                      <input date-time auto-close="true" view="date" format="DD-MM-YYYY HH:mm" ng-model="filters.toDate">
+                      <i class="fa fa-calendar" focus-input></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="filterBtn button-group">
+          <button class="button-group-main primary" ng-disabled="(!filters.client || !filters.fromDate || !filters.toDate)" ng-click="filter()">Filter</button>
+        </div>
+      </div>
+    </div>
+    <div class="closeBtn" ng-click="headOpen = !headOpen">
+      <i class="fa fa-angle-up"></i>
+    </div>
+  </div>
+  <div class="content" ng-if="tripDetailsList && tripDetailsList.length > 0">
+    <div class="flex-columns">
+      <div class="searchBar inputIconDiv">
+        <input type="text" ng-model="q" placeholder="search" />
+        <i class="fa fa-search"></i>
+      </div>
+    </div>
+    <div class="invoices">
+      <table-view page-data="tripDetailsTableData" data="tripDetailsList" filter-by="q"></table-view>
+    </div>
+  </div>
+</div>

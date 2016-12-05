@@ -1,0 +1,44 @@
+<div class="homepage">
+	<div class="flex-stack">
+		<div class="flex-columns">
+			<div class="clientBlock module bar">
+				<div class="header clearfix">
+					<div class="title">Clients <span class="smallInfo">{{dashboardClients.length}} added recently</span></div>
+					<a class="createLink link" ng-click="addClient()">Create new client</a>
+				</div>
+				<div class="module-container clientDashboardTable">
+					<table-view page-data="clientTableData" data="dashboardClients"></table-view>
+				</div>
+			</div>
+			<div class="routesBlock module bar">
+				<div class="header clearfix">
+					<div class="title">Routes <!--<span class="smallInfo">{{dashboardClients.length}} added recently</span>--></div>
+					<a class="createLink link" ng-click="addRoute()">Create new route</a>
+				</div>
+				<div class="module-container">
+					<!-- <table-view page-data="clientTableData" data="dashboardClients"></table-view> -->
+				</div>
+			</div>
+		</div>
+		<div class="flex-columns">
+			<div class="podBlock module bar">
+				<div class="header clearfix">
+					<div class="title">PODs <!--<span class="smallInfo">{{dashboardClients.length}} added recently</span>--></div>
+					<!-- <a class="createLink link"></a> -->
+				</div>
+				<div class="module-container">
+					<!-- <table-view page-data="clientTableData" data="dashboardClients"></table-view> -->
+				</div>
+			</div>
+			<div class="invoicesBlock module bar">
+				<div class="header clearfix">
+					<div class="title">Invoice <!--<span class="smallInfo">{{dashboardClients.length}} added recently</span>--></div>
+					<a class="createLink link">Generate invoice</a>
+				</div>
+				<div class="module-container">
+					<!-- <table-view page-data="clientTableData" data="dashboardClients"></table-view> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

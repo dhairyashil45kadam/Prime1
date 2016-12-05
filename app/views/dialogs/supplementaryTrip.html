@@ -1,0 +1,138 @@
+<div class="scrollable routeDetails">
+  <div class="alert-view " ng-show="showAlert" ng-class="{error: errorAlert}">
+    <div class="alert-message" ng-bind="alertMessage"></div>
+  </div>
+  <div class="co_body">
+    <ul class="co-content">
+      <li>
+        <div class="co-panel" ng-class="{open: steps[0].inProgress, closed: !steps[0].inProgress, completed: steps[0].completed && !steps[0].inProgress}">
+          <div class="panel-header">
+            <div class="heading-bar">
+              <div class="title">
+                <span>Select client </span>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body collapse" ng-class="{in: steps[0].inProgress}">
+            <div class="flex-columns">
+              <div class="form-field first">
+                <div class="field-label">Client</div>
+                <div class="input-group">
+                  <select ng-model="newSupplementaryTrip.client" ng-options="client as client.clientName for client in clients">
+                  </select>
+                </div>
+              </div>
+              <div class="form-field second">
+                <div class="field-label">Planning id</div>
+                <div class="input-group">
+                  <input type="text" ng-model="newSupplementaryTrip.planningId" />
+                </div>
+              </div>
+              <div class ="form-field second">
+                <div ng-if = "newSupplementaryTrip.planningId && newSupplementaryTrip.client">
+                  <div>
+                    <button class="supplementTripButton" ng-click="getTripBillingDetail()">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-show = "tripbillingdetailObj">
+              <div class="flex-columns">
+                <div class="form-field second">
+                  <div class="field-label">Trip code</div>
+                  <div class="input-group">
+                    <input type="text" disabled ng-model="tripbillingdetailObj.tripCode" />
+                  </div>
+                </div>
+                <div class="form-field second">
+                  <div class="field-label">Vehicle number</div>
+                  <div class="input-group">
+                    <input type="text" disabled ng-model="tripbillingdetailObj.vehicleNumber" />
+                  </div>
+                </div>
+              </div>
+              <div class = "flex-columns" >
+                <div class="form-field second">
+                  <div class="field-label">Base rate</div>
+                  <div class="input-group">
+                    <input type="text" ng-model="newSupplementaryTrip.tripRatesDto.baseRate"/>
+                  </div>
+                </div>
+                <div class="form-field first" >
+                  <div class="field-label">Late charge</div>
+                  <div class="input-group">
+                    <input type="text" ng-model="newSupplementaryTrip.tripRatesDto.lateCharge" />
+                  </div>
+                </div>
+              </div>
+              <div class = "flex-columns">
+                <div class="form-field first">
+                  <div class="field-label">Loading Detention</div>
+                  <div class="input-group">
+                    <input type="text" ng-model="newSupplementaryTrip.tripRatesDto.loadingDetention" />
+                  </div>
+                </div>
+                <div class="form-field second">
+                  <div class="field-label">Unloading Detention</div>
+                  <div class="input-group">
+                    <input type="text" ng-model="newSupplementaryTrip.tripRatesDto.unloadingDetention" />
+                  </div>
+                </div>
+              </div>
+              <div class = "flex-columns">
+                <div class="form-field first">
+                  <div class="field-label">Loading</div>
+                  <div class="input-group">
+                    <input type="text" ng-model="newSupplementaryTrip.tripRatesDto.loading"/>
+                  </div>
+                </div>
+                <div class="form-field second">
+                  <div class="field-label">Unloading</div>
+                  <div class="input-group">
+                    <input type="text" ng-model="newSupplementaryTrip.tripRatesDto.unloading" />
+                  </div>
+                </div>
+              </div>
+              <div class = "flex-columns">
+                <div class="form-field first">
+                  <div class="field-label">Green Tax</div>
+                  <div class="input-group">
+                    <input type="text" ng-model="newSupplementaryTrip.tripRatesDto.greenTax"/>
+                  </div>
+                </div>
+                <div class="form-field second">
+                  <div class="field-label">Other Charges</div>
+                  <div class="input-group">
+                    <input type="text" ng-model="newSupplementaryTrip.tripRatesDto.otherCharges" />
+                  </div>
+                </div>
+              </div>
+              <div class = "flex-columns">
+                <div class="form-field first">
+                  <div class="field-label">Weight</div>
+                  <div class="input-group">
+                    <input type="text" ng-model="newSupplementaryTrip.tripRatesDto.weight" />
+                  </div>
+                </div>
+                <div class="form-field">
+                  <div class="field-label">Fuel surcharge</div>
+                  <div class="input-group">
+                    <input type="text" ng-model="newSupplementaryTrip.tripRatesDto.fuelSurcharge" ng-required = "true" />
+                  </div>
+                </div>
+              </div>
+              <div class ="felx-columns">
+                <div class="form-field">
+                  <div class="field-label">Comments</div>
+                  <div class="input-group">
+                    <input type="text" ng-model="newSupplementaryTrip.comments" ng-required = "true" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

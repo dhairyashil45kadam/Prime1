@@ -1,0 +1,31 @@
+'use strict';
+
+angular.module("financeUiApp").constant('PermissionConstant',{
+  editClient: ['ROLE_FINANCE_LEVEL_1','ROLE_FINANCE_LEVEL_2'],
+  addClient: ['ROLE_FINANCE_LEVEL_1','ROLE_FINANCE_LEVEL_2'],
+  viewClient: ['ROLE_FINANCE_LEVEL_1','ROLE_FINANCE_LEVEL_2','ROLE_FINANCE_LEVEL_3','ROLE_FINANCE_LEVEL_4'],
+  approveClient: ['ROLE_FINANCE_LEVEL_3'],
+  rejectClient: ['ROLE_FINANCE_LEVEL_3'],
+  viewRoute: ['ROLE_FINANCE_LEVEL_1','ROLE_FINANCE_LEVEL_2','ROLE_FINANCE_LEVEL_3','ROLE_FINANCE_LEVEL_4'],
+  addRoute: ['ROLE_FINANCE_LEVEL_1','ROLE_FINANCE_LEVEL_2'],
+  editRoute: ['ROLE_FINANCE_LEVEL_1','ROLE_FINANCE_LEVEL_2'],
+  approveRates: ['ROLE_FINANCE_LEVEL_3'],
+  rejectRates: ['ROLE_FINANCE_LEVEL_3'],
+  rejectRatesApproval: ['ROLE_FINANCE_LEVEL_4'],
+  viewTrip: ['ROLE_FINANCE_LEVEL_1','ROLE_FINANCE_LEVEL_2','ROLE_FINANCE_LEVEL_3','ROLE_FINANCE_LEVEL_4'],
+  editTripRate: ['ROLE_FINANCE_LEVEL_2','ROLE_FINANCE_LEVEL_3'],
+  splitInCategory: ['ROLE_FINANCE_LEVEL_2','ROLE_FINANCE_LEVEL_3'],
+  fuelSurchargeCaluculation: ['ROLE_FINANCE_LEVEL_1','ROLE_FINANCE_LEVEL_2'],
+  addSupplementaryTrip: ['ROLE_FINANCE_LEVEL_1','ROLE_FINANCE_LEVEL_2'],
+  approveBDOperation: ['ROLE_FINANCE_LEVEL_BD'],
+  computeTotalBD: ['ROLE_FINANCE_LEVEL_BD'],
+  approveInvoice: ['ROLE_FINANCE_LEVEL_3'],
+  rejectInvoice: ['ROLE_FINANCE_LEVEL_3'],
+  rejectBDInvoice: ['ROLE_FINANCE_LEVEL_4'],
+  rejectBDOperation: ['ROLE_FINANCE_LEVEL_BD'],
+  generateInvoice: ['ROLE_FINANCE_LEVEL_1','ROLE_FINANCE_LEVEL_2','ROLE_FINANCE_LEVEL_3'],
+  approveOperation: ['ROLE_FINANCE_LEVEL_2'],
+  rejectOperation: ['ROLE_FINANCE_LEVEL_2'],
+  rejectInvoiceApproval: ['ROLE_FINANCE_LEVEL_4'],
+  userClientMapping: ['ROLE_FINANCE_LEVEL_3','ROLE_FINANCE_LEVEL_4']
+});

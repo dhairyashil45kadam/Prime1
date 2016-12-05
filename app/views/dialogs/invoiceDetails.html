@@ -1,0 +1,61 @@
+<div class="scrollable">
+  <div class="alert-view" ng-show="showAlert">
+    <div class="alert-message" ng-bind="alertMessage"></div>
+  </div>
+  <div class="co_body">
+    <ul class="co-content">
+      <li>
+        <div class="co-panel" ng-class="{open: steps[0].inProgress, closed: !steps[0].inProgress, completed: steps[0].completed && !steps[0].inProgress}">
+          <div class="panel-header" ng-click="changeSelection(0)">
+            <div class="heading-bar">
+              <div class="title">
+                <span>Invoice cover page</span>
+              </div>
+            </div>
+            <div class="review-bar">
+              <a class="collapsed-state">
+                <div class="summary width70percent">
+                  <div class="title width30percent">
+                    <span>Invoice cover page</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="panel-body collapse" ng-class="{in: steps[0].inProgress}">
+            <button class="button-group-main secondary" ng-click="printCover()" ng-class="">Print cover page</button>
+            <preview-invoice invoice-details="invoiceDetails" class="printable"></preview-invoice>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="co-panel" ng-class="{open: steps[1].inProgress, closed: !steps[1].inProgress, completed: steps[1].completed && !steps[1].inProgress}">
+          <div class="panel-header" ng-click="changeSelection(1)">
+            <div class="heading-bar">
+              <div class="title">
+                <span>Trips Summary</span>
+              </div>
+            </div>
+            <div class="review-bar">
+              <a class="collapsed-state">
+                <div class="summary width70percent">
+                  <div class="title width30percent">
+                    <span>Trips Summary</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="next-heading title">
+              <span>Trips summary</span>
+            </div>
+          </div>
+          <div class="panel-body collapse" ng-class="{in: steps[1].inProgress}">
+            <button class="button-group-main secondary" ng-click="downloadTripsCSV()">Download details</button>
+            <button ng-click="selectOptions()">edit</button>
+            <table-view page-data="tripsSummaryTable" data="tripsData"></table-view>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
