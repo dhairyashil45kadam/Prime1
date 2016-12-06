@@ -15,6 +15,7 @@ angular.module('financeUiApp')
         inProgress: false,
         completed: false
       }];
+
       function showErrorAlert(alert) {
         $scope.showAlert = true;
         $scope.alertMessage = alert;
@@ -408,6 +409,19 @@ angular.module('financeUiApp')
         value: "ABSOLUTE"
       }];
 
+      //function to download csv
+      $scope.downloadRoutesCSV = function () {
+        var csvName = $scope.route.client.clientName;
+        $rootScope.JSONToCSVConvertor($scope.existingRatesFiltered, csvName, $scope.routeRateTableData.columns);//create csv and download
+      }
 
+      $scope.uploadRoutesCSV = function() {
+        $rootScope.$emit('show-topDrawer-child', {
+          template: 'views/dialogs/UploadCsv.html',
+          controller: 'UploadCsvCtrl',
+          heading: "Upload CSV",
+          type: "routesUpload"
+        });
+      }
     }
   ]);

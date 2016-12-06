@@ -105,9 +105,17 @@ angular.module('financeUiApp')
 		});
 
 		$rootScope.$on('show-topDrawer', function(event, args) {
+			
 			args.className = "topDrawer";
 			globalDialog.showDrawer(args);
 		});
+
+		$rootScope.$on('show-topDrawer-child', function(event, args) {
+			
+			args.className = "topDrawer";
+			globalDialog.showDrawerChild(args);
+		});
+
 		$rootScope.$on('show-leftDrawer', function(event, args) {
 			args.className = "leftDrawer";
 			globalDialog.showDrawer(args);

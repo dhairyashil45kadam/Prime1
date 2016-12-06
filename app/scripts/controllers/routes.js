@@ -8,6 +8,8 @@ angular.module('financeUiApp')
       $scope.tabSelected = "PENDING";
       $scope.UserProfile = UserProfileFactory.$$state.value;
 
+      
+      
       var fuelSurchargeComponents = {
         'BASERATE_CLAUSE': [{
           label: "Fuel base rate",

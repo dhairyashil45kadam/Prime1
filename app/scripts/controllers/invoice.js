@@ -763,7 +763,7 @@ angular.module('financeUiApp')
       }, {
         label: "Reject",
         show: function() {
-          return ($scope.tabSelected === "APPROVAL_PENDING" && ($scope.UserProfile.$hasAnyRole($scope.PermissionConstant.rejectBDOperation)) );
+          return ($scope.tabSelected === "APPROVAL_PENDING" && ($scope.UserProfile.$hasAnyRole($scope.PermissionConstant.rejectBDOperation))) || ($scope.tabSelected === "APPROVAL_PENDING" && ($scope.UserProfile.$hasAnyRole($scope.PermissionConstant.rejectFinanceHead)) ) || ($scope.tabSelected === "APPROVED" && ($scope.UserProfile.$hasAnyRole($scope.PermissionConstant.rejectFinanceHead)) );
         //  ($scope.tabSelected === "BD_APPROVED" && ($scope.UserProfile.$hasAnyRole($scope.PermissionConstant.rejectBDInvoice)));
         },
         action: showEnterCommentDialog
@@ -975,7 +975,8 @@ angular.module('financeUiApp')
         $rootScope.$emit('show-topDrawer', {
           template: 'views/dialogs/UploadCsv.html',
           controller: 'UploadCsvCtrl',
-          heading: "Upload CSV"
+          heading: "Upload CSV",
+          type: "invoiceTripUpload"
         });
       }
 

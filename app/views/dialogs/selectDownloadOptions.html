@@ -4,6 +4,9 @@
     <div class="form-field check-section">
       <div class="input-group" style="display:flex; border:0; flex-flow:row wrap; justify-content:space-between;">
         <input type="text" ng-model="templateName" placeholder="Enter a name to remember the combiation(Fuel&Taxes)"/>
+        <div>
+          <input type="checkbox" ng-model="checkAllOption" class="checkbox" style="opacity:1;" ng-checked="all" ng-click="checkAll(checkAllOption)" id="all" />Check All
+        </div>
      <!--    <input type="checkbox" class="checkbox" style="opacity:1;" ng-checked="all" ng-click="checkAll()" id="all">Check All</input> -->
         <div ng-repeat="column in allColumns">
           <input type="checkbox" class="checkbox" ng-checked="{{'all'+$index}}" id="{{'checkbox'+ $index}}" ng-click="recordCheckIndex($index)"/>
