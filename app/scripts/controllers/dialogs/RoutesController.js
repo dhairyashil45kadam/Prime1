@@ -16,6 +16,109 @@ angular.module('financeUiApp')
         completed: false
       }];
 
+
+      $scope.filter = function() {
+
+        var clientId = $scope.filters.clientRoutes.id,
+          clientRoutes = $scope.filters.clientRoutes,
+          startCWHs = $scope.filters.startCWHs,
+          tripType = $scope.filters.tripType,
+          vehicleType = $scope.filters.vehicleType,
+          endCWHs = $scope.filters.endCWHs,
+          clientRouteIds = [], startCWHIds = [], endCWHIds = [];
+
+        var filters = [];
+        if(clientId) {
+          filters.push({
+            label: "Client",
+            values: [$scope.filters.client.clientName]
+          });
+        }
+        if($scope.filters.tripType){
+          filters.push({
+            label: "tripType",
+            values: tripType
+          });
+          
+        }
+        if($scope.filters.vehicleType){
+          filters.push({
+            label: "vehicleType",
+            values: vehicleType
+          });
+          
+        }
+        if(clientRoutes && clientRoutes.length > 0) {
+          var routeValues = [];
+          clientRoutes.forEach(function(o) {
+            if(o.ticked) {
+              clientRouteIds.push(o.id);
+              routeValues.push(o.displayName);
+            }
+          });
+          filters.push({
+            label: "Route",
+            values: routeValues
+          });
+        }
+        if(startCWHs && startCWHs.length > 0) {
+          var startValues = [];
+          startCWHs.forEach(function(o) {
+            if(o.startSelected) {
+              startCWHIds.push(o.id);
+              startValues.push(o.name);
+            }
+          });
+          filters.push({
+            label: "Starting",
+            values: startValues
+          });
+          
+        }
+        if(endCWHs && endCWHs.length > 0) {
+          var endValues = [];
+          endCWHs.forEach(function(o) {
+            if(o.endSelected) {
+              endCWHIds.push(o.id);
+              endValues.push(o.name);
+            }
+          });
+          filters.push({
+            label: "Ending",
+            values: endValues
+          });
+        }
+        
+        console.log($scope.route.client.id);
+        console.log(clientRouteIds);
+        console.log(startCWHIds);
+        console.log(endCWHIds);
+        console.log(tripType);
+        console.log(vehicleType);
+        // $scope.filterValues = filters;
+        // $scope.headOpen = false;
+        // $rootScope.$emit('load-start');
+        // InvoiceService.getTripsPendingInvoicing(clientId, clientRouteIds, startCWHIds, endCWHIds, dateFilterType, startDate, endDate).then(function(response) {
+        //   $scope.pendingTrips = response.object;
+        //   $scope.grouping($scope.groupFilter);
+
+        //   $scope.pendingTrips.forEach(function(obj){
+        //     if(obj.detentionDetailDto && obj.detentionDetailDto.delayDataDtoList && 
+        //       obj.detentionDetailDto.delayDataDtoList[0].cwhId == obj.endPoint ){
+        //       var tmp = obj.detentionDetailDto.delayDataDtoList[0];
+        //       obj.detentionDetailDto.delayDataDtoList[0] = obj.detentionDetailDto.delayDataDtoList[1];
+        //       obj.detentionDetailDto.delayDataDtoList[1] = tmp;
+        //     }
+        //   });
+        //   //$scope.groupFilter = "all";
+        //   //$scope.grouping($scope.groupFilter);
+        //   //setTabData();
+        //   $rootScope.$emit('load-stop');
+        // }, function() {
+        //   $rootScope.$emit('load-stop');
+        // });
+      };
+
       function showErrorAlert(alert) {
         $scope.showAlert = true;
         $scope.alertMessage = alert;
@@ -37,6 +140,7 @@ angular.module('financeUiApp')
       }
 
       function getClientBillingDetails() {
+
         ClientService.getBillingDetails($scope.route.client.id).then(function(billing) {
           $scope.clientBillingDetails = billing;
         }, function() {
@@ -44,14 +148,46 @@ angular.module('financeUiApp')
         });
       }
 
+      function getClientWarehouses(){
+        ClientService.getClientWarehouses($scope.route.client.id).then(function(res) {
+          $scope.clientCWHs = res;
+          console.log(res);
+        }, function() {
+          console.log("Could not fetch warehouses");
+        });
+      }
+
       function hasValue(a) {
         return a || a === 0;
       }
+
+
+
+      // $scope.onClientSelect = function() {
+      //   $scope.startCWH = "";
+      //   $scope.clientRouteId = "";
+      //   ClientService.getClientRoutes($scope.filters.client.id).then(function(res) {
+      //     $scope.clientRoutes = res;
+      //     res.forEach(function(obj) {
+      //       obj.displayName = obj.clientRouteName + " (" + obj.routeName + ")";
+      //     });
+      //     console.log(res);
+      //   }, function() {
+      //     console.log("Could not fetch routes");
+      //   });
+      //   ClientService.getClientWarehouses($scope.filters.client.id).then(function(res) {
+      //     $scope.clientCWHs = res;
+      //     console.log(res);
+      //   }, function() {
+      //     console.log("Could not fetch warehouses");
+      //   });
+      // };
 
       $scope.onClientSelect = function() {
         // setWarehousesForClient($scope.route.clientId);
         getClientRoutes();
         getClientBillingDetails();
+        getClientWarehouses();
       };
 
       var fuelSurchargeComponents = {
@@ -193,6 +329,9 @@ angular.module('financeUiApp')
           formatter: function(value) {
             return $filter('date')(value, 'dd/MM/yyyy HH:mm');
           }
+        },{
+          label: "Edited(Y/N)",
+          show:false
         }],
         actions: [{
             label: "Approve",

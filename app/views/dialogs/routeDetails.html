@@ -41,26 +41,55 @@
                 </select>
               </div>
             </div>
+
             <div class="flex-columns">
               <div class="form-field first">
                 <div class="field-label">Select client route</div>
                 <div class="input-group multi-select">
-                  <isteven-multi-select input-model="clientRoutes" output-model="clientRouteForRouteObj"  button-label="routeName" item-label="displayName" tick-property="ticked" selection-mode="single"></isteven-multi-select>
+                  <isteven-multi-select input-model="clientRoutes" output-model="filters.clientRoutes"  button-label="routeName" item-label="displayName" tick-property="ticked">
+                  </isteven-multi-select>
                 </div>
             </div>
+
+
+
+
+
+
+
+             <div class="filter form-field">
+              <div class="filterLabel field-label">Starting location</div>
+              <div class="multi-select">
+                <isteven-multi-select input-model="clientCWHs" output-model="filters.startCWHs" button-label="name" item-label="name" tick-property="startSelected"></isteven-multi-select>
+              </div>
+            </div>
+            <div class="filter form-field">
+              <div class="filterLabel field-label">End location</div>
+              <div class="multi-select">
+                <isteven-multi-select input-model="clientCWHs" output-model="filters.endCWHs" button-label="name" item-label="name" tick-property="endSelected"></isteven-multi-select>
+              </div>
+            </div> 
+
               <div class="form-field second">
                 <div class="field-label">Trip type</div>
                 <div class="input-group">
-                  <select ng-model="route.tripType" ng-options="tripType.value as tripType.text for tripType in tripTypes" ng-change="filterRatesEntry()"></select>
+                  <select ng-model="filters.tripType" ng-options="tripType.value as tripType.text for tripType in tripTypes" ng-change="filterRatesEntry()"></select>
                 </div>
               </div>
               <div class="form-field second">
                 <div class="field-label">Vehicle type</div>
                 <div class="input-group">
-                  <select ng-model="route.vehicleType" ng-options="vehicleType as vehicleType for vehicleType in vehicleTypes" ng-change="filterRatesEntry()"></select>
+                  <select ng-model="filters.vehicleType" ng-options="vehicleType as vehicleType for vehicleType in vehicleTypes" ng-change="filterRatesEntry()"></select>
                 </div>
               </div>
             </div>
+
+
+            <div class="filterBtn button-group">
+                <button class="button-group-main primary" ng-disabled="!route.client"   ng-click="filter()">Filter</button>
+            </div>
+
+
             <div class="existingEntries" ng-if="rateAlreadyPresent">
               <!-- <h2>asdasdasd</h2> -->
               <div class="selectedFilters">

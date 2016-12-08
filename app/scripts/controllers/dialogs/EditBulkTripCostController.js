@@ -58,11 +58,27 @@ angular.module('financeUiApp')
         });*/
       }
 
-      console.log($scope.globalData.tripsData);
+      //console.log($scope.globalData.tripsData);
        $scope.save = function() {
-        console.log($scope.rateComponents);
+        var bulkEditTrip = [];
+        //var editTrip[i]["clientTripBillingDetailDto"] = {};
+        var clientId = $scope.tripData[0].clientId;
+        $scope.tripData.forEach(function(o,i) {
+          //o["tripRateDto"]=$scope.rateComponents;
+          //console.log(o);
+          var editTrip = {};
+          editTrip.clientTripBillingDetailDto = o;
+          editTrip.clientId = o.clientId;
+
+          editTrip.clientTripBillingDetailDto.tripRateDto = {};
+          $scope.rateComponents.forEach(function(o) {
+            editTrip.clientTripBillingDetailDto.tripRateDto[o.key] = o.editedValue;
+          });
+          editTrip.clientTripBillingDetailDto.comments = $scope.comments;
+          bulkEditTrip[i] = editTrip;
+          //editTrip[i]["clientTripBillingDetailDto"].push(o);
+        });
+        console.log(bulkEditTrip);
        }
-
-
     }
   ]);

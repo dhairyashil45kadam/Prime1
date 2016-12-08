@@ -925,6 +925,10 @@ angular.module('financeUiApp')
         $scope.filterValues = filters;
         $scope.headOpen = false;
         $rootScope.$emit('load-start');
+        console.log(clientId);
+        console.log(clientRouteIds);
+        console.log(startCWHIds);
+        console.log(endCWHIds);
         InvoiceService.getTripsPendingInvoicing(clientId, clientRouteIds, startCWHIds, endCWHIds, dateFilterType, startDate, endDate).then(function(response) {
           $scope.pendingTrips = response.object;
           $scope.grouping($scope.groupFilter);
@@ -1108,6 +1112,8 @@ angular.module('financeUiApp')
                 return truncateValue(value);
             }
           }
+        },{
+          label: "Edited(Y/N)"
         }];
 
 
