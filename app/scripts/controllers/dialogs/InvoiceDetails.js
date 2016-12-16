@@ -23,6 +23,7 @@ angular.module('financeUiApp')
       
       function populateInvoicePreviewDetails() {
         var invoiceDetails = angular.extend({}, $scope.invoice);
+        
         if($scope.invoice.serviceTaxAmount) {
           invoiceDetails.includeTaxes = true;
         }
@@ -279,6 +280,40 @@ angular.module('financeUiApp')
           formatter: function(value, record) {
             if(record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.greenTax) && isChanged(record.defaultTripRatesDto.greenTax , record.updatedTripRatesDto.greenTax)) {
               return '<strike>'+ truncateValue(value) +'</strike><div>' + truncateValue(record.updatedTripRatesDto.greenTax) + '</div>';
+            }
+            return truncateValue(value);
+          }
+        }, {
+          label: "Multiple Pick up Charges",
+          compute: function(record) {
+            if (record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.greenTax) && isChanged(record.defaultTripRatesDto.multiplePickUpCharges , record.updatedTripRatesDto.multiplePickUpCharges)) {
+              return truncateValue(record.updatedTripRatesDto.multiplePickUpCharges);
+            } else if (record.defaultTripRatesDto && hasValue(record.defaultTripRatesDto.multiplePickUpCharges)) {
+              return truncateValue(record.defaultTripRatesDto.multiplePickUpCharges);
+            }
+            return "0.00";
+          },
+          className: "multiplePickUpCharges",
+          formatter: function(value, record) {
+            if(record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.multiplePickUpCharges) && isChanged(record.defaultTripRatesDto.multiplePickUpCharges , record.updatedTripRatesDto.multiplePickUpCharges)) {
+              return '<strike>'+ truncateValue(value) +'</strike><div>' + truncateValue(record.updatedTripRatesDto.multiplePickUpCharges) + '</div>';
+            }
+            return truncateValue(value);
+          }
+        }, {
+          label: "multiple Delivery Charges",
+          compute: function(record) {
+            if (record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.multipleDeliveryCharges) && isChanged(record.defaultTripRatesDto.multipleDeliveryCharges , record.updatedTripRatesDto.multipleDeliveryCharges)) {
+              return truncateValue(record.updatedTripRatesDto.multipleDeliveryCharges);
+            } else if (record.defaultTripRatesDto && hasValue(record.defaultTripRatesDto.multipleDeliveryCharges)) {
+              return truncateValue(record.defaultTripRatesDto.multipleDeliveryCharges);
+            }
+            return "0.00";
+          },
+          className: "multipleDeliveryCharges",
+          formatter: function(value, record) {
+            if(record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.multipleDeliveryCharges) && isChanged(record.defaultTripRatesDto.multipleDeliveryCharges , record.updatedTripRatesDto.multipleDeliveryCharges)) {
+              return '<strike>'+ truncateValue(value) +'</strike><div>' + truncateValue(record.updatedTripRatesDto.multipleDeliveryCharges) + '</div>';
             }
             return truncateValue(value);
           }
@@ -579,6 +614,24 @@ angular.module('financeUiApp')
           }
         }
       }, {
+        label: "Multiple Pick up Charges",
+        compute: function(record) {
+          if (record.tripClientDocDto && hasValue(record.tripClientDocDto.multiplePickUpCharges)) {
+            return truncateValue(record.tripClientDocDto.multiplePickUpCharges);
+          } else {
+            return '0.00';
+          }
+        }
+      }, {
+        label: "multiple Delivery Charges",
+        compute: function(record) {
+          if (record.tripClientDocDto && hasValue(record.tripClientDocDto.multipleDeliveryCharges)) {
+            return truncateValue(record.tripClientDocDto.multipleDeliveryCharges);
+          } else {
+            return '0.00';
+          }
+        }
+      }, {
         label: "Weight",
         compute: function(record) {
           if (record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.weight) && isChanged(record.defaultTripRatesDto.weight , record.updatedTripRatesDto.weight)) {
@@ -655,6 +708,7 @@ angular.module('financeUiApp')
 
       //function to download csv
       $scope.downloadInvoice = function () {
+
         $scope.downloadInvoiceData = [];
         $scope.downloadInvoiceTemplate = [];
 
@@ -717,7 +771,10 @@ angular.module('financeUiApp')
           }
           selectedCoulumns.push(tempColumn);
         };
-        var csvName = $scope.invoiceDetails.invoiceNumber + "_" + $scope.invoiceDetails.clientCode;
+
+        //console.log($rootScope.clientName);
+
+        var csvName = $scope.invoiceDetails.invoiceNumber + "_" + $rootScope.clientName+ "_" + $filter('date')($scope.invoiceDetails.creationDate, "dd/MM/yyyy");
         $rootScope.JSONToCSVConvertor($scope.tripsData, csvName, selectedCoulumns);
       };
     }

@@ -308,6 +308,26 @@ angular.module('financeUiApp')
             }
             return truncateValue(value);
           },
+        },{
+          label: "Multiple Pickup Charges",
+          key: "multiplePickUpCharges",
+          sortable: true,
+          className: "multiplePickUpCharges",
+          compute: function(record){
+            if(record.defaultTripRatesDto.multiplePickUpCharges){
+              return record.defaultTripRatesDto.multiplePickUpCharges;
+            }
+          }
+        }, {
+          label: "Multiple Delivery Charges",
+          key: "multipleDeliveryCharges",
+          sortable: true,
+          className: "multipleDeliveryCharges",
+          compute: function(record){
+            if(record.defaultTripRatesDto.multipleDeliveryCharges){
+              return record.defaultTripRatesDto.multipleDeliveryCharges;
+            }
+          }
         }, {
           label: "Other Charges",
           compute: function(record) {
@@ -858,6 +878,8 @@ angular.module('financeUiApp')
           endCWHs = $scope.filters.endCWHs,
           startDate, endDate, dateFilterType,clientRouteIds = [], startCWHIds = [], endCWHIds = [];
 
+
+
         var filters = [];
         if(clientId) {
           filters.push({
@@ -985,6 +1007,7 @@ angular.module('financeUiApp')
       }
 
       $scope.downloadTripsCSV = function() {
+        //alert("hi");
         var csvName = $scope.filters.client.clientName;
         var extraColumns = [
         {
@@ -993,9 +1016,7 @@ angular.module('financeUiApp')
         }, {
           label:"Trip type",
           key:"tripType"
-        }, {
-          label: "Vehicle type",
-          key: "vehicleType"
+
         }, {
           label: "Trip start time",
           key: "startTime",
@@ -1112,14 +1133,126 @@ angular.module('financeUiApp')
                 return truncateValue(value);
             }
           }
+        }, {
+          label: "Freight Rate",
+          compute: function(record) {
+            if (record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.baseRate) && isChanged(record.defaultTripRatesDto.baseRate , record.updatedTripRatesDto.baseRate)) {
+              return truncateValue(record.updatedTripRatesDto.baseRate);
+            } else if (record.defaultTripRatesDto && hasValue(record.defaultTripRatesDto.baseRate)) {
+              return truncateValue(record.defaultTripRatesDto.baseRate);
+            }
+            return "0.00";
+          },
+          className: "baseRate"
+        }, {
+          label: "Fuel Adjustment",
+          className: "fuelSurcharge",
+          showDownArrow: true,
+          compute: function(record) {
+            if (record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.fuelSurcharge) && isChanged(record.defaultTripRatesDto.fuelSurcharge , record.updatedTripRatesDto.fuelSurcharge)) {
+              return truncateValue(record.updatedTripRatesDto.fuelSurcharge);
+            } else if (record.defaultTripRatesDto && hasValue(record.defaultTripRatesDto.fuelSurcharge)) {
+              return truncateValue(record.defaultTripRatesDto.fuelSurcharge);
+            }
+            return "0.00";
+          },
+          formatter: function(value, record) {
+            if(record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.fuelSurcharge) && isChanged(record.defaultTripRatesDto.fuelSurcharge , record.updatedTripRatesDto.fuelSurcharge)) {
+              return '<strike>'+ truncateValue(record.defaultTripRatesDto.fuelSurcharge) +'</strike><div>' + truncateValue(record.updatedTripRatesDto.fuelSurcharge) + '</div>';
+            }
+            return truncateValue(value);
+          },
+          showHover: true,
+          hover:{
+            templateFn: function(record){
+              var templ = "<div class = 'clientRouteFuelDetail'>";
+              if(record.defaultTripRatesDto && hasValue(record.defaultTripRatesDto.currentFuelRate)){
+                templ += '<div><div class="title">Current fuel rate : </div><div class = "value">' + record.defaultTripRatesDto.currentFuelRate + '</div></div>';
+              }
+              if(record.clientRouteFuelDetailDto){
+                var tmpDto = record.clientRouteFuelDetailDto;
+                if(hasValue(tmpDto.fuelSurchargeType)){
+                  templ+= '<div><div class="title">Fuel surcharge type: </div><div class="value">' + tmpDto.fuelSurchargeType +  '</div></div>';
+                }
+                if(hasValue(tmpDto.fuelBaseRate)){
+                  templ+= '<div><div class="title">Fuel base rate: </div><div class="value">' + tmpDto.fuelBaseRate +  '</div></div>';
+                }
+                if(hasValue(tmpDto.applicableAbove)){
+                  templ+= '<div><div class="title">Applicable above: </div><div class="value">' + tmpDto.applicableAbove +  '</div></div>';
+                }
+                if(hasValue(tmpDto.considerationPart)){
+                  templ+= '<div><div class="title">Consideration part: </div><div class="value">' + tmpDto.considerationPart +  '</div></div>';
+                }
+                if(hasValue(tmpDto.fuelRateChangeType)){
+                  templ+= '<div><div class="title">Fuel rate change type: </div><div class="value">' + tmpDto.fuelRateChangeType +  '</div></div>';
+                }
+                if(hasValue(tmpDto.baseValue)){
+                  templ+= '<div><div class="title">Base value: </div><div class="value">' + tmpDto.baseValue +  '</div></div>';
+                }
+                if(hasValue(tmpDto.mileage)){
+                  templ+= '<div><div class="title">Mileage: </div><div class="value">' + tmpDto.mileage +  '</div></div>';
+                  templ+= '<div><div class="title">Total distance: </div><div class="value">' + tmpDto.totalDistance +  '</div></div>';
+                }
+                return templ;
+              }
+            }
+          },
+        }, {
+          label: "Loading charges",
+          compute: function(record) {
+            if (record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.loading) && isChanged(record.defaultTripRatesDto.loading , record.updatedTripRatesDto.loading)) {
+              return truncateValue(record.updatedTripRatesDto.loading);
+            } else if (record.defaultTripRatesDto && hasValue(record.defaultTripRatesDto.loading)) {
+              return truncateValue(record.defaultTripRatesDto.loading);
+            }
+            return "0.00";
+          },
+          className: "loadingRate",
+          showDownArrow: true,
+          formatter: function(value, record) {
+            if(record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.loading) && isChanged(record.defaultTripRatesDto.loading , record.updatedTripRatesDto.loading)) {
+              return '<strike>'+ truncateValue(record.defaultTripRatesDto.loadingRate) +'</strike><div>' + truncateValue(record.updatedTripRatesDto.loading) + '</div>';
+            }
+            return truncateValue(value);
+          },
+        }, {
+          label: "Unloading charges",
+          compute: function(record) {
+            if (record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.unloading) && isChanged(record.defaultTripRatesDto.unloading , record.updatedTripRatesDto.unloading)) {
+              return truncateValue(record.updatedTripRatesDto.unloading);
+            } else if (record.defaultTripRatesDto && hasValue(record.defaultTripRatesDto.unloading)) {
+              return truncateValue(record.defaultTripRatesDto.unloading);
+            }
+            return "0.00";
+          },
+          className: "unloadingRate",
+          showDownArrow: true,
+          formatter: function(value, record) {
+            if(record.updatedTripRatesDto && hasValue(record.updatedTripRatesDto.unloading) && isChanged(record.defaultTripRatesDto.unloading , record.updatedTripRatesDto.unloading)) {
+              return '<strike>'+ truncateValue(record.defaultTripRatesDto.unloading) +'</strike><div>' + truncateValue(record.updatedTripRatesDto.unloading) + '</div>';
+            }
+            return truncateValue(value);
+          },
         },{
           label: "Edited(Y/N)"
         }];
 
 
         extraColumns = $scope.invoiceTableData.columns.concat(extraColumns);
-
-
+        $scope.vehicleTypeModifyValue = "";
+        //var vehicleType = "";
+        $scope.tripsData.forEach(function(o,i) {
+          
+          
+          if(o.vehicleType){
+               var result = o.vehicleType.split('_');
+               $scope.vehicleTypeModifyValue = result[1];
+               //console.log($scope.vehicleTypeModifyValue);
+            }
+            
+            $scope.tripsData[i].vehicleType=$scope.vehicleTypeModifyValue;
+        });
+        //console.log($scope.tripsData);
         $rootScope.JSONToCSVConvertor($scope.tripsData, csvName, extraColumns);
 
       };

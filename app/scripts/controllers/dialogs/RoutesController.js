@@ -95,28 +95,17 @@ angular.module('financeUiApp')
         console.log(endCWHIds);
         console.log(tripType);
         console.log(vehicleType);
-        // $scope.filterValues = filters;
-        // $scope.headOpen = false;
-        // $rootScope.$emit('load-start');
-        // InvoiceService.getTripsPendingInvoicing(clientId, clientRouteIds, startCWHIds, endCWHIds, dateFilterType, startDate, endDate).then(function(response) {
-        //   $scope.pendingTrips = response.object;
-        //   $scope.grouping($scope.groupFilter);
 
-        //   $scope.pendingTrips.forEach(function(obj){
-        //     if(obj.detentionDetailDto && obj.detentionDetailDto.delayDataDtoList && 
-        //       obj.detentionDetailDto.delayDataDtoList[0].cwhId == obj.endPoint ){
-        //       var tmp = obj.detentionDetailDto.delayDataDtoList[0];
-        //       obj.detentionDetailDto.delayDataDtoList[0] = obj.detentionDetailDto.delayDataDtoList[1];
-        //       obj.detentionDetailDto.delayDataDtoList[1] = tmp;
-        //     }
-        //   });
-        //   //$scope.groupFilter = "all";
-        //   //$scope.grouping($scope.groupFilter);
-        //   //setTabData();
-        //   $rootScope.$emit('load-stop');
-        // }, function() {
-        //   $rootScope.$emit('load-stop');
-        // });
+        $scope.filterValues = filters;
+        $scope.headOpen = false;
+        $rootScope.$emit('load-start');
+        ClientService.getRatesForClientRoute(clientId, clientRouteIds, startCWHIds, endCWHIds, tripType, vehicleType).then(function(response) {
+           $scope.clientExistingRatesEntries = routesRateInfo;
+            $scope.filterRatesEntry();
+            $rootScope.$emit('load-stop');
+          }, function() {
+            $rootScope.$emit('load-stop');
+          });
       };
 
       function showErrorAlert(alert) {
@@ -219,6 +208,12 @@ angular.module('financeUiApp')
         }, {
           label: "Surcharge base value(%)",
           key: "baseValue"
+        },{
+          label: "Multiple Pickup Charges",
+          key: "multiplePickUpCharges"
+        }, {
+          label: "Multiple Delivery Charges",
+          key: "multipleDeliveryCharges"
         }]
       };
 

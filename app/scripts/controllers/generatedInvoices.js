@@ -216,6 +216,8 @@ angular.module('financeUiApp')
       $scope.filter = function() {
         var clientId = $scope.filters.client.id,
           startDate, endDate;
+        $rootScope.clientName = $scope.filters.client.clientName;
+        //console.log($rootScope.clientName);
 
         var filters = [];
         if(clientId) {

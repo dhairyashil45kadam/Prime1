@@ -5,15 +5,18 @@ angular.module('financeUiApp')
     	//console.log($scope.globalType);
     	if ($scope.globalType == 'routesUpload') {
     		$scope.headerText = "Upload CSV For Routes";
+    		
     	}else{
     		$scope.headerText = "Upload CSV For Rates";
+    		
     	}
         $scope.save = function(element) {
+        	console.log($scope.globalType);
         	//console.log($scope.csv.result.filename);
         	//fileName.substr(fileName.lastIndexOf('.')+1)
         	var extn = $scope.csv.result.filename.substr($scope.csv.result.filename.lastIndexOf('.')+1);
         	//console.log($scope.csv.result);
-        	if ($scope.globalType == 'routesUpload') {
+        	if ($scope.globalType == 'invoiceTripUpload') {
 	        	if(extn=="csv"){
 	        		var actualdata = [];
 	        		var clientName;

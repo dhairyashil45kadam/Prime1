@@ -12,6 +12,7 @@ angular.module('financeUiApp')
           url: url,
           params: data
         }).success(function(data) {
+          console.log(data);
           deferred.resolve(data);
         }).error(function(data) {
           deferred.reject(data);

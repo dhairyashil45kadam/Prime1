@@ -155,6 +155,7 @@ angular.module('financeUiApp')
 		});
 
 		ClientService.getClientsWithFinancialInfo(false,$scope.userName).then(function(clients) {
+			console.log(clients);
 			$rootScope.clients = clients;
 		}, function() {
 			
@@ -206,12 +207,24 @@ angular.module('financeUiApp')
  	      var headerRowPlain = '';
  	      var CSV = '';
  	      var metaData = '';
+
  	      var tripCode = (name.split('_')[1]);
  	      if(tripCode)
  	  	    metaData += tripCode + '\r\n';
+
+
  	  	  var clientName = name.split('_')[0];
- 	  	  if(clientName)
- 	  	  	metaData += clientName + '\r\n\n';
+ 	  	  var invoiceDate = name.split('_')[2];
+ 	  	  if(clientName && invoiceDate){
+ 	  	  		metaData += clientName + '\r\n';
+ 	  	  } else {
+ 	  	  		metaData += clientName + '\r\n\n';
+ 	  	  }
+ 	  	  	
+ 	  	  if(invoiceDate)
+ 	  	  	metaData += invoiceDate + '\r\n\n';
+
+
  	      var row = "", headers = [];
           var index, i;
 
@@ -240,6 +253,27 @@ angular.module('financeUiApp')
  	        CSV += row + '\r\n';
  	      }
 
+ 	      if(invoiceDate){
+ 	      		  var space = "";
+ 	      		  var blankColumns = (columns.length)-2;
+ 	      		  for (i = 0;i <= blankColumns;i++) {
+      		  			if(blankColumns == i){
+      		  				space = space.concat(',');		
+      		  			} else {
+      		  				space = space.concat(',');		
+      		  			}
+				  }
+				  
+	        	  CSV += '\r\n';
+		 	      CSV += '\r\n';
+		 	      CSV += '\r\n';
+		 	      CSV += '\r\n';
+		 	      CSV += space + "For Rivigo Services Private Limited" + '\r\n';
+		 	      CSV += '\r\n';
+		 	      CSV += '\r\n';
+		 	      CSV += space +"Authorised Signatory" + '\r\n';		
+		 	        
+ 	      }
  	      if (CSV === '') {
  	        return;
  	      }

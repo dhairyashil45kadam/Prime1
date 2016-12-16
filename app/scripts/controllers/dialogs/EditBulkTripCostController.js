@@ -40,6 +40,14 @@ angular.module('financeUiApp')
         key: "greenTax",
         isEditable: true
       }, {
+        label: "Multiple Pick up Charges",
+        key: "multiplePickUpCharges",
+        isEditable: true
+      }, {
+        label: "Multiple Delivery Charges",
+        key: "multipleDeliveryCharges",
+        isEditable: true
+      }, {
         label: "Other Charges",
         key: "otherCharges",
         isEditable: true
@@ -60,6 +68,7 @@ angular.module('financeUiApp')
 
       //console.log($scope.globalData.tripsData);
        $scope.save = function() {
+        //alert("hi");
         var bulkEditTrip = [];
         //var editTrip[i]["clientTripBillingDetailDto"] = {};
         var clientId = $scope.tripData[0].clientId;
@@ -78,7 +87,17 @@ angular.module('financeUiApp')
           bulkEditTrip[i] = editTrip;
           //editTrip[i]["clientTripBillingDetailDto"].push(o);
         });
-        console.log(bulkEditTrip);
+        //console.log(bulkEditTrip);
+        //console.log($scope.UserProfile.user_name);
+
+        InvoiceService.bulkEditTrip(bulkEditTrip,$scope.UserProfile.user_name).then(function(response) {
+          console.log("Successful");
+          console.log(response.object);
+          
+        }, function() {
+          console.log("Unsuccessful");
+        });
+
        }
     }
   ]);

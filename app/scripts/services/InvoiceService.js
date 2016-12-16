@@ -96,6 +96,10 @@ angular.module('financeUiApp')
       calculateRateByWeight: function(clientId, weight, tripIds , userName) {
         var url = 'tripbillingdetail/computebaseratebyweight?clientId=' + clientId +'&weight=' + weight + '&currentUser=' + userName;
         return HttpQService.post(url,tripIds);
+      },
+      bulkEditTrip: function(bulkEditTripDTO,userName) {
+        console.log(bulkEditTripDTO);
+        return HttpQService.post('tripbillingdetail/edittripbillingbulk?currentUser=' + userName , bulkEditTripDTO);
       }
     };
   }]);
