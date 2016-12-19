@@ -15,11 +15,83 @@
       <tr>
         <td colspan="2" rowspan="2" class="noborder leftAligned">
           <div class="clientAddress">
-            <div>{{invoice.address.companyName}}</div>
-            <div ng-bind-html = "invoice.address.addressWithBrTag"></div>
-            <div>{{invoice.address.city}}, {{invoice.address.state}} - {{invoice.address.pincode}}</div>
-            <div><span class ="bold">PAN No. : </span> {{invoice.address.panNumber}}</div>
-            <div><span class="bold">K/Attn. : </span>{{invoice.address.name}}</div>
+            <!-- <div>{{invoice.address.companyName}}</div> -->
+            <span ng-mouseover="companyEditable=true" ng-mouseleave="companyEditable=false">
+              
+              <span ng-if="!companyEditable">{{invoice.address.companyName}}</span>
+              <span ng-if="companyEditable">
+                <span>
+                  <input type="text"  ng-model="invoice.address.companyName">
+                </span>
+              </span>
+          </span>
+
+            <div ng-mouseover="addressEditable=true" ng-mouseleave="addressEditable=false">
+              <div ng-if="!addressEditable">{{invoice.address.addressWithBrTag}}</div>
+              <div ng-if="addressEditable">
+                <div>
+                 <!--  <div ng-bind-html="invoice.address.addressWithBrTag" contenteditable="true" ng-model="invoice.address.addressWithBrTag" cols="50" rows="10">
+                  </div> -->
+                  <textarea ng-model="invoice.address.addressWithBrTag">{{invoice.address.addressWithBrTag}}</textarea> 
+                </div>
+              </div>
+          </div>
+            <!-- <div >  
+                <div ng-if="!dateEditable" ng-bind-html = "invoice.address.addressWithBrTag" ></div>
+                <div ng-if="dateEditable" ng-bind-html = "invoice.address.addressWithBrTag" ></div>
+            </div>    --> 
+            <span ng-mouseover="cityEditable=true" ng-mouseleave="cityEditable=false">
+              
+              <span ng-if="!cityEditable">{{invoice.address.city}}</span>
+              <span ng-if="cityEditable">
+                <span>
+                  <input type="text"  ng-model="invoice.address.city">
+                </span>
+              </span>
+          </span>
+          <span ng-mouseover="stateEditable=true" ng-mouseleave="stateEditable=false">
+              
+              <span ng-if="!stateEditable">{{invoice.address.state}}</span>
+              <span ng-if="stateEditable">
+                <span>
+                  <input type="text"  ng-model="invoice.address.state">
+                </span>
+              </span>
+          </span>
+
+          <span ng-mouseover="pinEditable=true" ng-mouseleave="pinEditable=false">
+              
+              <span ng-if="!pinEditable">{{invoice.address.pincode}}</span>
+              <span ng-if="pinEditable">
+                <span>
+                  <input type="text"  ng-model="invoice.address.pincode">
+                </span>
+              </span>
+          </span>
+            
+            <!-- <div>{{invoice.address.city}}, {{invoice.address.state}} - {{invoice.address.pincode}}</div> -->
+            
+            <div ng-mouseover="pinEditable=true" ng-mouseleave="pinEditable=false">
+              <span class ="bold">PAN No. : </span>
+              <div ng-if="!pinEditable">{{invoice.address.panNumber}}</div>
+              <div ng-if="pinEditable">
+                <div>
+                  <input type="text"  ng-model="invoice.address.panNumber">
+                </div>
+              </div>
+          </div>
+
+           <div ng-mouseover="attEditable=true" ng-mouseleave="attEditable=false">
+              <span class ="bold">K/Attn. : </span>
+              <div ng-if="!attEditable">{{invoice.address.name}}</div>
+              <div ng-if="attEditable">
+                <div>
+                  <input type="text"  ng-model="invoice.address.name">
+                </div>
+              </div>
+          </div>
+
+            <!-- <div><span class="bold">K/Attn. : </span>{{invoice.address.name}}</div> -->
           </div>
         </td>
         <td>Invoice no.</td>
@@ -31,17 +103,17 @@
         <td>Invoice date</td>
         <td class="rightAligned dateSection" ng-mouseover="dateEditable=true" ng-mouseleave="dateEditable=false">
           <div class="width90percent">
-            <div class="description" ng-if="!editDate">{{invoice.creationDate.valueOf() | date: 'dd/MM/yyyy' || "XXXXXXX"}}</div>
-            <div class="input-group" ng-if="editDate">
+            <div class="description" ng-if="!dateEditable">{{invoice.creationDate.valueOf() | date: 'dd/MM/yyyy' || "XXXXXXX"}}</div>
+            <div class="input-group" ng-if="dateEditable">
               <div class="date-picker inputIconDiv">
-                <input date-time auto-close="true" view="date" min-view="date" format="DD-MM-YYYY" ng-model="invoice.creationDate">
+                <input date-time auto-close="true" view="date" min-view="date" format="DD-MM-YYYY" ng-model="invoice.creationDate" >
                 <i class="fa fa-calendar" focus-input></i>
               </div>
             </div>
           </div>
-          <div class="width10percent" ng-show="editable">
+          <!-- <div class="width10percent" ng-show="editable">
             <edit-pencil is-edit="editDate" ng-show="dateEditable"></edit-pencil>
-          </div>
+          </div> -->
         </td>
       </tr>
       <tr class="gray">
@@ -53,13 +125,13 @@
         <td>{{$index+1}}</td>
         <td colspan="2" class="leftAligned" ng-mouseover="lineItem.isEditable=true" ng-mouseleave="lineItem.isEditable=false">
           <div class="width90percent">
-            <div class="description" ng-if="!lineItem.isEdit">{{lineItem.description}}</div>
-            <div class="input-group" ng-if="lineItem.isEdit">
-              <textarea ng-model="lineItem.description"></textarea>
+            <div class="description" ng-if="!lineItem.isEditable">{{lineItem.description}}</div>
+            <div class="input-group" ng-if="lineItem.isEditable">
+              <textarea ng-model="lineItem.description">{{lineItem.description}}</textarea>
             </div>
           </div>
-          <div class="width10percent" ng-if="editable">
-            <edit-pencil is-edit="lineItem.isEdit" ng-show="lineItem.isEditable"></edit-pencil>
+          <div class="width10percent">
+            <edit-pencil is-edit="lineItem.isEditable" ng-show="lineItem.isEditable"></edit-pencil>
             <a class="link" ng-show="lineItem.isEditable && $index!==0" ng-click="removeLineItem($index)" title="Remove item">
               <span class="fa fa-minus"></span>
             </a>
@@ -75,7 +147,7 @@
       <tr class="empty" ng-mouseover="showAddMore=true" ng-mouseleave="showAddMore=false" ng-style="{'height': (350-30*(invoice.invoiceLineItemDtoList.length-1))+'px'}">
         <td></td>
         <td colspan="2">
-          <a class="link" ng-show="showAddMore && editable" ng-click="addmorelineitems()" title="Add more line items">
+          <a class="link" ng-click="addmorelineitems()" title="Add more line items">
             <span class="fa-stack fa-lg">
               <i class="fa fa-circle fa-stack-2x"></i>
               <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
@@ -162,13 +234,26 @@
         <td colspan="2" class="leftAligned">
           <div class="bold">Terms and Conditions</div><br/>
           <ol>
-            <li>All Payment to be made only through Account payee Cheque/DD/RTGS in favour of Rivigo Services Pvt. Ltd.</li>
+            <li ng-mouseover="termsEditable=true" ng-mouseleave="termsEditable=false">
+            <span ng-if="!termsEditable">{{invoice.firstTerm}}
+            </span>
+            <span ng-if="termsEditable">
+                <textarea ng-model="invoice.firstTerm">{{invoice.firstTerm}}</textarea>
+            </span>
+            </li>
             <li>Interest @2% per month or part thereof will be charged if the bill is not paid on due date.</li>
             <li>All disputes and differences arising out of this will be subject to jurisdiction of Gurgaon courts only.</li>
           </ol>
         </td>
         <td colspan="2">
-          <b>For Rivigo Services Private Limited</b>
+          <div ng-mouseover="companyEditable=true" ng-mouseleave="companyEditable=false">
+              <div ng-if="!companyEditable">{{invoice.rivigoCompanyName}} Test</div>
+              <div ng-if="companyEditable">
+                <div>
+                  <input type="text"  ng-model="invoice.rivigoCompanyName">
+                </div>
+              </div>
+          </div>
           <br/><br/><br/><br/><br/><br/>
           <b>Authorised Signatory</b>
         </td>

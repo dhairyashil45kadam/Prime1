@@ -16,6 +16,7 @@ angular.module('financeUiApp')
           key: "invoiceNumber",
           className: "invoiceNumber",
           showDownArrow: true
+          
         }, {
           label: "Client",
           key: "clientCode",

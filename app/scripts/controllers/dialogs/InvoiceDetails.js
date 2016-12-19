@@ -9,6 +9,10 @@ angular.module('financeUiApp')
       function isChanged(a, b) {
         return a - b !== 0;
       }
+      $scope.editDate=true;
+      
+
+      
 
       function truncateValue(a) {
         if(typeof a === "string") {
@@ -20,10 +24,12 @@ angular.module('financeUiApp')
       function hasValue(a) {
         return a || a === 0;
       }
-      
+
+      //$scope.terms = "All Payment to be made only through Account payee Cheque/DD/RTGS in favour of Rivigo Services Pvt. Ltd.";
       function populateInvoicePreviewDetails() {
         var invoiceDetails = angular.extend({}, $scope.invoice);
-        
+        invoiceDetails.rivigoCompanyName="For Rivigo Services Private Limited";
+        invoiceDetails.firstTerm="All Payment to be made only through Account payee Cheque/DD/RTGS in favour of Rivigo Services Pvt. Ltd.";
         if($scope.invoice.serviceTaxAmount) {
           invoiceDetails.includeTaxes = true;
         }
@@ -346,6 +352,8 @@ angular.module('financeUiApp')
         $rootScope.$emit('load-start');
         InvoiceService.getInvoiceSummary($scope.invoice.invoiceId).then(function(res) {
           $scope.invoiceSummary = res.object;
+
+          console.log($scope.invoiceSummary);
           populateTripsInfo();
           populateInvoicePreviewDetails();
           $rootScope.$emit('load-stop');
@@ -488,7 +496,7 @@ angular.module('financeUiApp')
           }
         }
       },{
-        label: "lr",
+        label: "LR/ POD No.",
         compute: function(record) {
           if (record.tripClientDocDto && hasValue(record.tripClientDocDto.lr)) {
             return truncateValue(record.tripClientDocDto.lr);
@@ -642,16 +650,16 @@ angular.module('financeUiApp')
           return "0.00";
         },
       }, {
-        label: "Actual time of dispatch",
+        label: "Dispatch Date",
         key: "startTime",
         formatter: function(value) {
-          return $filter('date')(value, 'dd/MM/yyyy');
+          return $filter('date')(value, 'dd/MM/yyyy HH:mm:ss');
         }
       }, {
-        label: "Actual time of arrival",
+        label: "Delivery Date",
         key: "endTime",
         formatter: function(value) {
-          return $filter('date')(value, 'dd/MM/yyyy');
+          return $filter('date')(value, 'dd/MM/yyyy HH:mm:ss');
         }
       }];
 
