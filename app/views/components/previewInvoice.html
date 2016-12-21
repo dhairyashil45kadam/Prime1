@@ -25,17 +25,23 @@
                 </span>
               </span>
           </span>
-
-            <div ng-mouseover="addressEditable=true" ng-mouseleave="addressEditable=false">
-              <div ng-if="!addressEditable">{{invoice.address.addressWithBrTag}}</div>
+<!--  -->
+            <!-- addressEditable=true -->
+            
+            <div ng-mouseover="removeHtmlTags(invoice.address.addressWithBrTag)" ng-mouseleave="addHtmlTags(invoice.address.addressWithBrTag)">
+              <div ng-if="!addressEditable" ng-bind-html="invoice.address.addressWithBrTag"></div>
               <div ng-if="addressEditable">
+                
                 <div>
                  <!--  <div ng-bind-html="invoice.address.addressWithBrTag" contenteditable="true" ng-model="invoice.address.addressWithBrTag" cols="50" rows="10">
                   </div> -->
+                  <!-- <div class="divInput"  ng-model="invoice.address.addressWithBrTag"></div> -->
+                  
                   <textarea ng-model="invoice.address.addressWithBrTag">{{invoice.address.addressWithBrTag}}</textarea> 
                 </div>
               </div>
           </div>
+          
             <!-- <div >  
                 <div ng-if="!dateEditable" ng-bind-html = "invoice.address.addressWithBrTag" ></div>
                 <div ng-if="dateEditable" ng-bind-html = "invoice.address.addressWithBrTag" ></div>
@@ -247,7 +253,7 @@
         </td>
         <td colspan="2">
           <div ng-mouseover="companyEditable=true" ng-mouseleave="companyEditable=false">
-              <div ng-if="!companyEditable">{{invoice.rivigoCompanyName}} Test</div>
+              <div ng-if="!companyEditable">{{invoice.rivigoCompanyName}}</div>
               <div ng-if="companyEditable">
                 <div>
                   <input type="text"  ng-model="invoice.rivigoCompanyName">

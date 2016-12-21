@@ -53,6 +53,25 @@ angular.module("financeUiApp")
 
             }
           };
+
+
+          function htmlToPlaintext(text) {
+            return text ? String(text).replace(/<[^>]+>/gm, '') : '';
+          }
+          $scope.removeHtmlTags = function(address){
+            $scope.addressEditable = true;
+            var plain_text = htmlToPlaintext( address );
+            $scope.invoice.address.addressWithBrTag = plain_text;
+            console.log($scope.invoice.address.addressWithBrTag);
+          };
+          $scope.addHtmlTags = function(address){
+            $scope.addressEditable = false;
+            var addressWithBr = address.replace(/,/g, ',<br> ');
+            $scope.invoice.address.addressWithBrTag = addressWithBr;
+            console.log($scope.invoice.address.addressWithBrTag);
+          };
+
+
           $scope.removeLineItem = function(index) {
             var amountTobeAddedToTotalCost = $scope.invoiceDetails.invoiceLineItemDtoList[index].amount;
             $scope.invoiceDetails.invoiceLineItemDtoList.splice(index, 1);

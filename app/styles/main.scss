@@ -502,3 +502,20 @@ button:not([type='button']) {
 .bold {
 	@include rivigofont(bold);
 }
+.divInput{
+	outline: none;
+    
+    border: 1px solid #c7c7c7;
+    padding: 0 8px;
+    background-clip: border-box;
+    border-radius: 2px;
+    -webkit-transition-property: border;
+    transition-property: border;
+    -webkit-transition-duration: 0.35s;
+    transition-duration: 0.35s;
+    font-size: 1.0rem;
+    box-sizing: border-box;
+    width: 100%;
+    vertical-align: middle;
+    font-family: "Avenir Next LT Pro Regular", Open Sans, sans-serif;
+}

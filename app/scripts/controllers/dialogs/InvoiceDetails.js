@@ -24,7 +24,9 @@ angular.module('financeUiApp')
       function hasValue(a) {
         return a || a === 0;
       }
+      
 
+      
       //$scope.terms = "All Payment to be made only through Account payee Cheque/DD/RTGS in favour of Rivigo Services Pvt. Ltd.";
       function populateInvoicePreviewDetails() {
         var invoiceDetails = angular.extend({}, $scope.invoice);
@@ -56,6 +58,7 @@ angular.module('financeUiApp')
             $scope.selectedColumnListToDownload.push(insertingIndex);
           };
         }
+
         //dummy response to test
         //$scope.selectedColumnListToDownload = [1,2,5,7,11,13,17,19,23,29,31];
 
@@ -65,7 +68,7 @@ angular.module('financeUiApp')
           };
         }
       }
-
+      
       function populateTripsInfo() {
         $scope.tripsData = $scope.invoiceSummary.tripBillingDetailDtoList;
       }
